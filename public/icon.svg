@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="prograd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="shieldgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="128" fill="url(#prograd)" />
+  
+  <!-- Shield Emblem -->
+  <path d="M256 96 L376 144 V264 C376 344 256 416 256 416 C256 416 136 344 136 264 V144 Z" fill="url(#shieldgrad)" opacity="0.9" />
+  
+  <!-- Stylized 'P' & 'X' inside shield -->
+  <path d="M220 180 H270 C292 180 308 194 308 214 C308 234 292 248 270 248 H220 V330 H190 V180 H220 Z M220 206 V224 H266 C276 224 282 218 282 215 C282 212 276 206 266 206 Z" fill="#ffffff" />
+  <path d="M300 270 L340 330 H310 L285 292 L298 273 Z" fill="#93c5fd" />
+  <path d="M340 270 L292 330 H268 L316 270 Z" fill="#ffffff" />
+</svg>
