@@ -9,6 +9,15 @@ import { submitQuotationRequest } from './actions';
 const CART_KEY = 'prohomex_quote_cart';
 const LEGACY_CART_KEY = 'techmaha_quote_cart';
 
+export type CartItem = {
+  productId: string;
+  quantity: number;
+  name: string;
+  sku: string;
+  price: number;
+  unit: string;
+};
+
 function loadCart(): CartItem[] {
   if (typeof window === 'undefined') return [];
   try {

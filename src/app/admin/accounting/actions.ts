@@ -222,11 +222,15 @@ export async function syncAllTransactionsToAccounting() {
           lines.push({ accountId: gstOutputAccount.id, debit: 0, credit: gst, description: `GST Output (18%) on #${inv.invoice_number}` });
         }
 
+        const custName = Array.isArray(inv.customers)
+          ? (inv.customers[0] as any)?.company_name
+          : (inv.customers as any)?.company_name || 'Customer';
+
         await createJournalEntry({
           entryDate: inv.created_at ? new Date(inv.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
           referenceType: 'INVOICE',
           referenceId: inv.id,
-          narration: `Invoice #${inv.invoice_number} to ${inv.customers?.company_name || 'Customer'}`,
+          narration: `Invoice #${inv.invoice_number} to ${custName}`,
           lines,
         });
         invoiceCount++;
@@ -250,10 +254,13 @@ export async function syncAllTransactionsToAccounting() {
       if (!existing && Number(pay.amount) > 0) {
         const amt = Number(pay.amount);
         const targetBankOrCash = (pay.payment_method || '').toUpperCase() === 'CASH' ? cashAccount.id : bankAccount.id;
+        const payCustName = Array.isArray(pay.customers)
+          ? (pay.customers[0] as any)?.company_name
+          : (pay.customers as any)?.company_name || 'Customer';
 
         const lines: CreateJournalLineInput[] = [
           { accountId: targetBankOrCash, debit: amt, credit: 0, description: `Payment Receipt #${pay.payment_number}` },
-          { accountId: arAccount.id, debit: 0, credit: amt, description: `Receipt from ${pay.customers?.company_name || 'Customer'}` },
+          { accountId: arAccount.id, debit: 0, credit: amt, description: `Receipt from ${payCustName}` },
         ];
 
         await createJournalEntry({
