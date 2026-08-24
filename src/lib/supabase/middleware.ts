@@ -26,8 +26,14 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // Refresh session — do not remove this
-  const { data: { user } } = await supabase.auth.getUser()
+  // Refresh session safely with try-catch
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data?.user || null;
+  } catch (e) {
+    user = null;
+  }
 
   const path = request.nextUrl.pathname
 
