@@ -7,6 +7,8 @@ import { getAllSiteSettings } from '@/lib/cms';
 import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton';
 import AnnouncementBar from '@/components/ui/AnnouncementBar';
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const settings = await getAllSiteSettings();
   const { branding, home_page, announcement_bar, whatsapp_button } = settings;

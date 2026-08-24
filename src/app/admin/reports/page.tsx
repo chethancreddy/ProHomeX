@@ -1,6 +1,8 @@
 import { createAdminClient } from '@/lib/supabase/admin';
 import ReportsDashboard from './ReportsDashboard';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminReportsPage() {
   const supabase = createAdminClient();
 

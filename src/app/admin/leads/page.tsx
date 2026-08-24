@@ -2,6 +2,8 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLeadsPage() {
   // Use service role client to bypass RLS (avoids "Error fetching leads: {}" bug)
   const supabase = createAdminClient();

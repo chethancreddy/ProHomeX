@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminOrdersPage() {
   const supabase = await createClient();
   const { data: orders, error } = await supabase

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Users, Plus, Building2, Phone, Mail, MapPin } from 'lucide-react';
 import AddCustomerModal from './AddCustomerModal';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminCustomersPage() {
   const supabase = createAdminClient();
 

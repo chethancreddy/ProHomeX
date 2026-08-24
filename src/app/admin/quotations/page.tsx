@@ -28,6 +28,8 @@ function statusBadge(s: string) {
   return <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${cls}`}>{label}</span>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminQuotationsPage() {
   const supabase = createAdminClient();
   const { data: quotations, error } = await supabase

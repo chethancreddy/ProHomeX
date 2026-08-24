@@ -3,6 +3,8 @@ import Link from 'next/link';
 import StockAdjuster from './StockAdjuster';
 import { Package, AlertTriangle, XCircle, UploadCloud } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminInventoryPage() {
   const supabase = createAdminClient();
 

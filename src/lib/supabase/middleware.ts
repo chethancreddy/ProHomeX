@@ -32,12 +32,13 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname
 
   // Route categories
-  const isPublicRoute = ['/', '/cctv', '/solar', '/ups', '/about', '/contact',
+  const isPublicRoute = [
+    '/', '/cctv', '/solar', '/ups', '/home-automation', '/about', '/contact',
     '/services', '/request-quote', '/login', '/verify', '/reset-password',
-    '/admin/login',
+    '/admin/login', '/manifest.json', '/sw.js', '/icon.svg',
   ].some(p => path === p || path.startsWith(p + '/') || 
     // allow static assets  
-    path.startsWith('/_next') || path.startsWith('/favicon'))
+    path.startsWith('/_next') || path.startsWith('/favicon') || path.endsWith('.svg') || path.endsWith('.png') || path.endsWith('.ico'))
 
   const isCustomerRoute = path.startsWith('/customer')
   const isAdminRoute = path.startsWith('/admin') && !path.startsWith('/admin/login')

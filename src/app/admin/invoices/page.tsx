@@ -11,6 +11,8 @@ const STATUS_STYLE: Record<string, string> = {
   OVERDUE: 'bg-red-100 text-red-700',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminInvoicesPage() {
   const supabase = createAdminClient();
 
