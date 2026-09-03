@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Shield, Award, Users, ChevronRight, CheckCircle } from 'lucide-react';
+import { Shield, Award, Users, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { getSectionSettings, AboutPageSettings, BrandingSettings } from '@/lib/cms';
 
 export default async function AboutPage() {
@@ -9,80 +9,111 @@ export default async function AboutPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <PublicNav />
-      <main>
-        <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl sm:text-5xl font-extrabold">{about.title}</h1>
-            <p className="mt-4 text-slate-300 text-base max-w-2xl leading-relaxed">
-              {about.subtitle}
+    <div className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
+      <PublicNav branding={branding} />
+
+      <main className="space-y-16 md:space-y-24 py-10 md:py-16">
+        {/* Header Hero */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="eyebrow-text inline-block mb-3 text-black/60 font-mono">
+              ABOUT US / COMPANY HERITAGE
+            </span>
+            <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black mb-6">
+              {about.title || 'Engineering Quality & Infrastructure Excellence'}
+            </h1>
+            <p className="text-lg sm:text-xl font-light text-black/80 leading-relaxed">
+              {about.subtitle || 'ProHomeX delivers certified engineering solutions for smart security, renewable energy, and power backup systems.'}
             </p>
           </div>
         </section>
 
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-4">
-                <h2 className="text-2xl font-extrabold text-slate-900">Our Story &amp; Heritage</h2>
-                <div className="text-slate-600 text-sm leading-relaxed whitespace-pre-line space-y-3">
-                  <p>{about.story}</p>
-                </div>
+        {/* Story Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-7 space-y-6">
+              <span className="eyebrow-text text-black/60 font-mono block">OUR JOURNEY</span>
+              <h2 className="headline-text text-2xl sm:text-3xl font-semibold text-black tracking-tight">
+                Built on Engineering Integrity
+              </h2>
+              <div className="text-sm sm:text-base font-light text-black/80 leading-relaxed space-y-4">
+                <p>{about.story}</p>
+              </div>
 
-                <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-blue-50/70 border border-blue-100 p-4 rounded-xl">
-                    <h3 className="font-bold text-blue-900 text-xs uppercase tracking-wider mb-1">Our Mission</h3>
-                    <p className="text-xs text-slate-700 leading-relaxed">{about.mission}</p>
-                  </div>
-                  <div className="bg-indigo-50/70 border border-indigo-100 p-4 rounded-xl">
-                    <h3 className="font-bold text-indigo-900 text-xs uppercase tracking-wider mb-1">Our Vision</h3>
-                    <p className="text-xs text-slate-700 leading-relaxed">{about.vision}</p>
-                  </div>
+              <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-[#f7f7f5] border border-[#e6e6e6] p-6 rounded-[20px]">
+                  <h3 className="font-mono text-xs text-black/60 uppercase tracking-widest mb-2">OUR MISSION</h3>
+                  <p className="text-xs text-black/80 leading-relaxed">{about.mission}</p>
                 </div>
-
-                <div className="pt-2">
-                  <Link href="/request-quote" className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold px-6 py-3 rounded-xl text-sm hover:bg-blue-700 transition-colors shadow-md">
-                    Request Consultation <ChevronRight size={14} />
-                  </Link>
+                <div className="bg-[#f7f7f5] border border-[#e6e6e6] p-6 rounded-[20px]">
+                  <h3 className="font-mono text-xs text-black/60 uppercase tracking-widest mb-2">OUR VISION</h3>
+                  <p className="text-xs text-black/80 leading-relaxed">{about.vision}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { icon: Shield, title: 'Quality First', desc: 'We never compromise on OEM equipment certified standards.' },
-                  { icon: Award, title: 'Certified Engineers', desc: 'All technicians are in-house trained and background checked.' },
-                  { icon: Users, title: 'Customer Trust', desc: 'Over 850+ commercial & residential clients across South India.' },
-                  { icon: CheckCircle, title: 'Rapid Support SLA', desc: 'Guaranteed same-day on-site support for service contracts.' },
-                ].map((v, i) => (
-                  <div key={i} className="bg-slate-50 rounded-2xl p-5 border border-slate-200 hover:shadow-md transition-all">
-                    <v.icon size={22} className="text-blue-600 mb-3" />
-                    <h3 className="font-bold text-slate-900 text-sm">{v.title}</h3>
-                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">{v.desc}</p>
-                  </div>
-                ))}
+              <div className="pt-4">
+                <Link
+                  href="/request-quote"
+                  className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-sm transition-all active:scale-98"
+                >
+                  Request Consultation <ArrowRight size={16} />
+                </Link>
               </div>
+            </div>
+
+            <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { icon: Shield, title: 'Tier-1 Hardware', desc: 'Direct OEM partnership warranties on all cameras, panels & batteries.' },
+                { icon: Award, title: 'In-House Engineers', desc: 'Every installation is certified by trained ProHomeX staff.' },
+                { icon: Users, title: '850+ Sites Powered', desc: 'Trusted by residential communities and corporate facilities.' },
+                { icon: Check, title: 'Same-Day SLA', desc: 'Rapid field response and scheduled preventive maintenance.' },
+              ].map((v, i) => (
+                <div key={i} className="bg-white rounded-[20px] p-6 border border-[#e6e6e6] hover:border-black transition-all">
+                  <div className="w-10 h-10 rounded-full bg-[#f7f7f5] text-black flex items-center justify-center mb-3">
+                    <v.icon size={18} />
+                  </div>
+                  <h3 className="font-bold text-black text-sm mb-1">{v.title}</h3>
+                  <p className="text-xs text-black/70 leading-relaxed">{v.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
       </main>
+
       <PublicFooter branding={branding} />
     </div>
   );
 }
 
-function PublicNav() {
+function PublicNav({ branding }: { branding: any }) {
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <Link href="/" className="font-bold text-xl text-slate-900 flex items-center gap-0.5"><span className="text-blue-600 font-extrabold">ProHome</span><span className="text-slate-900 font-extrabold">X</span></Link>
-        <nav className="hidden md:flex items-center gap-7">
-          {[['CCTV', '/cctv'], ['Solar', '/solar'], ['UPS', '/ups'], ['Automation', '/home-automation'], ['About', '/about'], ['Contact', '/contact']].map(([l, h]) => (
-            <Link key={h} href={h} className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">{l}</Link>
-          ))}
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e6e6e6]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14">
+        <Link href="/" className="font-bold text-lg tracking-tight text-black flex items-center gap-1">
+          <span>{branding?.company_name || 'ProHomeX'}</span>
+        </Link>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-normal text-black">
+          <Link href="/cctv" className="hover:opacity-60 transition-opacity">CCTV</Link>
+          <Link href="/solar" className="hover:opacity-60 transition-opacity">Solar</Link>
+          <Link href="/ups" className="hover:opacity-60 transition-opacity">UPS</Link>
+          <Link href="/home-automation" className="hover:opacity-60 transition-opacity">Automation</Link>
+          <Link href="/about" className="text-black font-semibold">About</Link>
+          <Link href="/contact" className="hover:opacity-60 transition-opacity">Contact</Link>
         </nav>
         <div className="flex items-center gap-3">
-          <Link href="/request-quote" className="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-blue-700 transition-colors">Get Quote</Link>
+          <Link
+            href="/login"
+            className="text-xs font-medium text-black px-3.5 py-1.5 rounded-full hover:bg-[#f7f7f5] transition-colors"
+          >
+            Sign In
+          </Link>
+          <Link
+            href="/request-quote"
+            className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-900 text-white text-xs font-medium px-4 py-2 rounded-full transition-all active:scale-95"
+          >
+            Get Quote <ArrowUpRight size={13} />
+          </Link>
         </div>
       </div>
     </header>
@@ -91,11 +122,17 @@ function PublicNav() {
 
 function PublicFooter({ branding }: { branding: any }) {
   return (
-    <footer className="bg-slate-950 text-slate-400 py-8 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <Link href="/" className="font-bold text-white text-base"><span className="text-blue-400 font-extrabold">ProHome</span>X</Link>
-        <span>© {new Date().getFullYear()} {branding?.company_name || 'ProHomeX'}. All rights reserved.</span>
+    <footer className="bg-white text-black border-t border-[#e6e6e6] pt-12 pb-8 text-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-black/60 font-mono">
+        <p>© {new Date().getFullYear()} {branding?.company_name || 'ProHomeX'}. All rights reserved.</p>
+        <div className="flex items-center gap-6">
+          <Link href="/cctv" className="hover:text-black">CCTV</Link>
+          <Link href="/solar" className="hover:text-black">Solar</Link>
+          <Link href="/ups" className="hover:text-black">UPS</Link>
+          <Link href="/home-automation" className="hover:text-black">Automation</Link>
+        </div>
       </div>
     </footer>
   );
 }
+

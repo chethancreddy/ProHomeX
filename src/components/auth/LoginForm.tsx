@@ -4,48 +4,61 @@ import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { loginWithPassword } from '@/app/actions/auth';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Check } from 'lucide-react';
 
-type LoginMode = 'email-password' | 'sign-up';
+type LoginMode = 'email-password' | 'sign-up' | 'otp';
 
 export function LoginForm() {
   const [mode, setMode] = useState<LoginMode>('email-password');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [token, setToken] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signupSuccess, setSignupSuccess] = useState(false);
   
   const supabase = createClient();
+  const router = useRouter();
 
-  const handleAction = async (formData: FormData) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsLoading(true);
     setError(null);
 
     try {
       if (mode === 'email-password') {
-        // Server action handles DB role lookup and redirect
+        const formData = new FormData(e.currentTarget);
         const result = await loginWithPassword(formData);
         if (result?.error) {
           setError(result.error);
         }
-        return;
       } else if (mode === 'sign-up') {
-        // Always sign up as CUSTOMER — admins are created manually in Supabase
         const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: {
-              full_name: fullName,
-              role: 'CUSTOMER',
-            }
+            data: { full_name: fullName, role: 'CUSTOMER' }
           }
         });
         if (error) throw error;
         setSignupSuccess(true);
+      } else if (mode === 'otp') {
+        if (!otpSent) {
+          const { error } = await supabase.auth.signInWithOtp({ email });
+          if (error) throw error;
+          setOtpSent(true);
+        } else {
+          const { error } = await supabase.auth.verifyOtp({ email, token, type: 'email' });
+          if (error) throw error;
+          // Refresh the router to pick up the new session via middleware
+          router.push('/');
+          router.refresh();
+        }
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred.');
@@ -57,20 +70,21 @@ export function LoginForm() {
   if (signupSuccess) {
     return (
       <Card className="w-full max-w-md mx-auto">
-        <CardContent className="pt-8 pb-6 text-center">
-          <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl">✓</span>
+        <CardContent className="pt-10 pb-8 text-center">
+          <div className="w-12 h-12 rounded-full bg-[#c8e6cd] text-[#1ea64a] flex items-center justify-center mx-auto mb-4">
+            <Check size={24} strokeWidth={2.5} />
           </div>
-          <h3 className="text-lg font-bold text-gray-900">Account Created!</h3>
-          <p className="text-sm text-gray-500 mt-2">
+          <h3 className="text-xl font-bold tracking-tight text-black">Account Created</h3>
+          <p className="text-sm font-light text-black/70 mt-2">
             Please check your email to confirm your account, then sign in.
           </p>
-          <button
+          <Button
             onClick={() => { setSignupSuccess(false); setMode('email-password'); }}
-            className="mt-5 w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            variant="primary"
+            className="mt-6 w-full"
           >
             Back to Sign In
-          </button>
+          </Button>
         </CardContent>
       </Card>
     );
@@ -78,81 +92,108 @@ export function LoginForm() {
 
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="text-center text-2xl">
-          {mode === 'sign-up' ? 'Create Account' : 'Sign In to ProHomeX'}
+      <CardHeader className="text-center">
+        <span className="caption-text text-black/60 font-mono mb-1 block">AUTHENTICATION</span>
+        <CardTitle className="text-2xl font-normal tracking-tight text-black">
+          {mode === 'sign-up' ? 'Create Account' : mode === 'otp' ? 'Sign In with OTP' : 'Sign In to ProHomeX'}
         </CardTitle>
       </CardHeader>
       
       <CardContent>
-        <form action={handleAction} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm border border-red-200">
+            <div className="bg-[#efd4d4] text-black p-3.5 rounded-[8px] text-xs border border-red-200">
               {error}
             </div>
           )}
 
           {mode === 'sign-up' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <label className="block text-xs font-mono uppercase tracking-wider text-black/70 mb-1.5">Full Name</label>
               <input
                 type="text"
                 name="fullName"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#e6e6e6] rounded-[8px] text-sm text-black focus:ring-2 focus:ring-black focus:border-black outline-none transition-all"
               />
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-xs font-mono uppercase tracking-wider text-black/70 mb-1.5">Email Address</label>
             <input
               type="email"
               name="email"
               required
+              disabled={mode === 'otp' && otpSent}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="w-full px-3.5 py-2.5 bg-white border border-[#e6e6e6] rounded-[8px] text-sm text-black focus:ring-2 focus:ring-black focus:border-black outline-none disabled:bg-[#f7f7f5] transition-all"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              name="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-            />
-          </div>
+          {(mode === 'email-password' || mode === 'sign-up') && (
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-mono uppercase tracking-wider text-black/70">Password</label>
+                {mode === 'email-password' && (
+                  <Link href="/reset-password" className="text-xs font-medium text-black hover:opacity-60 transition-opacity">
+                    Forgot?
+                  </Link>
+                )}
+              </div>
+              <input
+                type="password"
+                name="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-white border border-[#e6e6e6] rounded-[8px] text-sm text-black focus:ring-2 focus:ring-black focus:border-black outline-none transition-all"
+              />
+            </div>
+          )}
 
-          <Button type="submit" className="w-full" isLoading={isLoading}>
-            {mode === 'sign-up' ? 'Create Account' : 'Sign In'}
+          {mode === 'otp' && otpSent && (
+            <div>
+              <label className="block text-xs font-mono uppercase tracking-wider text-black/70 mb-1.5">Verification Code (OTP)</label>
+              <input
+                type="text"
+                name="token"
+                required
+                placeholder="Enter 6-digit code"
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-white border border-[#e6e6e6] rounded-[8px] text-sm text-black focus:ring-2 focus:ring-black focus:border-black outline-none tracking-widest text-center"
+              />
+            </div>
+          )}
+
+          <Button type="submit" variant="primary" size="lg" className="w-full mt-2" isLoading={isLoading}>
+            {mode === 'sign-up' ? 'Create Account' : mode === 'otp' ? (otpSent ? 'Verify & Login' : 'Send One-Time Code') : 'Sign In'}
           </Button>
         </form>
 
-        <div className="mt-4 text-center">
-          {mode === 'email-password' ? (
-            <button type="button" onClick={() => { setMode('sign-up'); setError(null); }} className="text-sm text-blue-600 hover:underline">
-              Don&apos;t have an account? Sign up
-            </button>
-          ) : (
-            <button type="button" onClick={() => { setMode('email-password'); setError(null); }} className="text-sm text-blue-600 hover:underline">
-              Already have an account? Sign in
+        <div className="mt-6 pt-6 border-t border-[#f1f1f1] flex flex-col items-center gap-2.5 text-xs">
+          {mode !== 'email-password' && (
+            <button type="button" onClick={() => { setMode('email-password'); setOtpSent(false); setError(null); }} className="font-medium text-black hover:opacity-60 transition-opacity">
+              Sign in with password
             </button>
           )}
-        </div>
-
-        <div className="mt-4 pt-4 border-t border-gray-100 text-center">
-          <p className="text-xs text-gray-400">
-            Admin? <Link href="/admin/login" className="text-blue-600 hover:underline">Sign in here →</Link>
-          </p>
+          {mode !== 'otp' && (
+            <button type="button" onClick={() => { setMode('otp'); setError(null); }} className="font-medium text-black hover:opacity-60 transition-opacity">
+              Sign in with Email OTP
+            </button>
+          )}
+          {mode !== 'sign-up' && (
+            <button type="button" onClick={() => { setMode('sign-up'); setOtpSent(false); setError(null); }} className="text-black/60 hover:text-black transition-colors">
+              Don&apos;t have an account? <span className="font-semibold text-black underline underline-offset-2">Sign up</span>
+            </button>
+          )}
         </div>
       </CardContent>
     </Card>
   );
 }
+

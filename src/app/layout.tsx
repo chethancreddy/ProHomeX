@@ -1,22 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { getSectionSettings, WhatsAppButtonSettings } from "@/lib/cms";
 import WhatsAppFloatingButton from "@/components/ui/WhatsAppFloatingButton";
 import PwaRegister from "@/components/pwa/PwaRegister";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const viewport: Viewport = {
-  themeColor: "#2563eb",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
 };
@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <head>
         <meta name="application-name" content="ProHomeX" />
@@ -47,12 +47,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <meta name="apple-mobile-web-app-title" content="ProHomeX" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#2563eb" />
+        <meta name="theme-color" content="#000000" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-white text-black">
         {children}
         <WhatsAppFloatingButton settings={waSettings} />
         <PwaRegister />
@@ -60,3 +60,4 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 }
+

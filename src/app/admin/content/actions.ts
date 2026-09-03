@@ -25,6 +25,7 @@ export async function saveSiteSettings(key: string, value: any): Promise<{ succe
     revalidatePath('/cctv');
     revalidatePath('/solar');
     revalidatePath('/ups');
+    revalidatePath('/home-automation');
     revalidatePath('/about');
     revalidatePath('/contact');
 

@@ -6,7 +6,7 @@ import {
   Shield, Sun, Battery, Info, PhoneCall, Save, CheckCircle,
   AlertCircle, Sparkles, ExternalLink, RefreshCw, Cpu
 } from 'lucide-react';
-import { AllSiteSettings } from '@/lib/cms';
+import { AllSiteSettings, HeroShowcaseCard } from '@/lib/cms';
 import { saveSiteSettings } from './actions';
 
 interface Props {
@@ -585,6 +585,323 @@ export default function CMSManager({ initialSettings }: Props) {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Hero Live Infrastructure Showcase Cards (Right Column) */}
+              <div className="pt-6 border-t border-gray-200 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                      <Sparkles size={16} className="text-purple-600" /> Hero Infrastructure Showcase Cards (Right Column)
+                    </h3>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      Full control: choose which card is Top Tile, Middle Tile, or Bottom Half Tiles, change color theme, icon, tags, and metrics.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const defaultHeroCards: HeroShowcaseCard[] = [
+                        {
+                          id: 'solar',
+                          slot: 'top',
+                          enabled: true,
+                          color: 'lilac',
+                          icon: 'sun',
+                          title: 'Rooftop Solar Array',
+                          subtitle: 'Bi-directional Net Meter',
+                          tag: 'Active · 4.8 kW',
+                          metric_label: 'Daily Clean Energy',
+                          metric_value: '28.4 kWh Generated',
+                          badge: '-85% EB Bill',
+                        },
+                        {
+                          id: 'cctv',
+                          slot: 'middle',
+                          enabled: true,
+                          color: 'lime',
+                          icon: 'shield',
+                          title: 'Perimeter Security Node',
+                          subtitle: '4K ColorVu AI Stream',
+                          tag: 'LIVE',
+                          metric_label: 'Intelligent Detection',
+                          metric_value: 'Human & Vehicle Recognized',
+                          badge: '24/7 NVR Encrypted',
+                        },
+                        {
+                          id: 'ups',
+                          slot: 'bottom_left',
+                          enabled: true,
+                          color: 'coral',
+                          icon: 'battery',
+                          title: 'UPS Backup',
+                          subtitle: 'Pure Sine Wave · 100%',
+                          tag: '0 ms',
+                          metric_label: 'Switchover',
+                          metric_value: '0 ms',
+                          badge: 'Online Pure Sine',
+                        },
+                        {
+                          id: 'sump',
+                          slot: 'bottom_right',
+                          enabled: true,
+                          color: 'mint',
+                          icon: 'cpu',
+                          title: 'Auto Sump',
+                          subtitle: 'Dry-Run Trip Safe',
+                          tag: 'Auto Mode',
+                          metric_label: 'Tank Level',
+                          metric_value: '92% Level',
+                          badge: 'Trip Safe',
+                        },
+                      ];
+                      setSettings({
+                        ...settings,
+                        home_page: {
+                          ...settings.home_page,
+                          hero_cards: defaultHeroCards,
+                        }
+                      });
+                    }}
+                    className="text-xs text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1 self-start sm:self-auto"
+                  >
+                    <RefreshCw size={12} /> Reset to Defaults
+                  </button>
+                </div>
+
+                {(() => {
+                  const defaultHeroCards: HeroShowcaseCard[] = [
+                    {
+                      id: 'solar',
+                      slot: 'top',
+                      enabled: true,
+                      color: 'lilac',
+                      icon: 'sun',
+                      title: settings.home_page.hero_solar_title || 'Rooftop Solar Array',
+                      subtitle: settings.home_page.hero_solar_subtitle || 'Bi-directional Net Meter',
+                      tag: settings.home_page.hero_solar_tag || 'Active · 4.8 kW',
+                      metric_label: settings.home_page.hero_solar_metric_label || 'Daily Clean Energy',
+                      metric_value: settings.home_page.hero_solar_metric_value || '28.4 kWh Generated',
+                      badge: settings.home_page.hero_solar_badge || '-85% EB Bill',
+                    },
+                    {
+                      id: 'cctv',
+                      slot: 'middle',
+                      enabled: true,
+                      color: 'lime',
+                      icon: 'shield',
+                      title: settings.home_page.hero_cctv_title || 'Perimeter Security Node',
+                      subtitle: settings.home_page.hero_cctv_subtitle || '4K ColorVu AI Stream',
+                      tag: settings.home_page.hero_cctv_tag || 'LIVE',
+                      metric_label: settings.home_page.hero_cctv_metric_label || 'Intelligent Detection',
+                      metric_value: settings.home_page.hero_cctv_metric_value || 'Human & Vehicle Recognized',
+                      badge: settings.home_page.hero_cctv_badge || '24/7 NVR Encrypted',
+                    },
+                    {
+                      id: 'ups',
+                      slot: 'bottom_left',
+                      enabled: true,
+                      color: 'coral',
+                      icon: 'battery',
+                      title: settings.home_page.hero_ups_title || 'UPS Backup',
+                      subtitle: settings.home_page.hero_ups_subtitle || 'Pure Sine Wave · 100%',
+                      tag: '0 ms',
+                      metric_label: 'Switchover',
+                      metric_value: settings.home_page.hero_ups_value || '0 ms',
+                      badge: 'Online Pure Sine',
+                    },
+                    {
+                      id: 'sump',
+                      slot: 'bottom_right',
+                      enabled: true,
+                      color: 'mint',
+                      icon: 'cpu',
+                      title: settings.home_page.hero_sump_title || 'Auto Sump',
+                      subtitle: settings.home_page.hero_sump_subtitle || 'Dry-Run Trip Safe',
+                      tag: 'Auto Mode',
+                      metric_label: 'Tank Level',
+                      metric_value: settings.home_page.hero_sump_value || '92% Level',
+                      badge: 'Trip Safe',
+                    },
+                  ];
+
+                  const currentCards: HeroShowcaseCard[] = (settings.home_page.hero_cards && settings.home_page.hero_cards.length > 0)
+                    ? settings.home_page.hero_cards
+                    : defaultHeroCards;
+
+                  function updateCard(idx: number, patch: Partial<HeroShowcaseCard>) {
+                    const nextCards = [...currentCards];
+                    nextCards[idx] = { ...nextCards[idx], ...patch };
+                    setSettings({
+                      ...settings,
+                      home_page: {
+                        ...settings.home_page,
+                        hero_cards: nextCards,
+                      }
+                    });
+                  }
+
+                  const colorStyles: Record<string, { bg: string; border: string; badgeBg: string; text: string }> = {
+                    lilac: { bg: 'bg-[#c5b0f4]/15', border: 'border-[#c5b0f4]/50', badgeBg: 'bg-purple-100 text-purple-900', text: 'text-purple-950' },
+                    lime: { bg: 'bg-[#dceeb1]/25', border: 'border-[#dceeb1]/70', badgeBg: 'bg-emerald-100 text-emerald-900', text: 'text-emerald-950' },
+                    coral: { bg: 'bg-[#f3c9b6]/25', border: 'border-[#f3c9b6]/70', badgeBg: 'bg-orange-100 text-orange-900', text: 'text-orange-950' },
+                    mint: { bg: 'bg-[#c8e6cd]/25', border: 'border-[#c8e6cd]/70', badgeBg: 'bg-teal-100 text-teal-900', text: 'text-teal-950' },
+                    cream: { bg: 'bg-[#f4ecd6]/40', border: 'border-[#f4ecd6]', badgeBg: 'bg-amber-100 text-amber-900', text: 'text-amber-950' },
+                    navy: { bg: 'bg-slate-900/10', border: 'border-slate-400', badgeBg: 'bg-slate-800 text-white', text: 'text-slate-900' },
+                  };
+
+                  return (
+                    <div className="space-y-4">
+                      {currentCards.map((card, idx) => {
+                        const style = colorStyles[card.color] || colorStyles.lilac;
+                        return (
+                          <div key={card.id || idx} className={`p-4 rounded-2xl ${style.bg} border ${style.border} space-y-3.5 transition-all`}>
+                            {/* Header Row: Card Title + Slot Position Picker + Enabled Toggle */}
+                            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className={`text-xs font-bold ${style.text} flex items-center gap-1.5`}>
+                                  Card #{idx + 1}: {card.title || 'Untitled Card'}
+                                </span>
+                              </div>
+
+                              <div className="flex flex-wrap items-center gap-2.5">
+                                {/* Position / Slot Selector */}
+                                <div className="flex items-center gap-1.5">
+                                  <label className="text-[11px] font-bold text-gray-700 uppercase">Position:</label>
+                                  <select
+                                    value={card.slot}
+                                    onChange={e => updateCard(idx, { slot: e.target.value as any })}
+                                    className="text-xs font-semibold bg-white border border-gray-300 rounded-lg px-2.5 py-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs"
+                                  >
+                                    <option value="top">⭐ Top Tile (Full Width Banner)</option>
+                                    <option value="middle">📌 Middle Tile (Full Width Banner)</option>
+                                    <option value="bottom_left">⬅️ Bottom Left Tile (Half Width)</option>
+                                    <option value="bottom_right">➡️ Bottom Right Tile (Half Width)</option>
+                                  </select>
+                                </div>
+
+                                {/* Color Theme Selector */}
+                                <div className="flex items-center gap-1.5">
+                                  <label className="text-[11px] font-bold text-gray-700 uppercase">Color:</label>
+                                  <select
+                                    value={card.color}
+                                    onChange={e => updateCard(idx, { color: e.target.value as any })}
+                                    className="text-xs font-semibold bg-white border border-gray-300 rounded-lg px-2 py-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs"
+                                  >
+                                    <option value="lilac">💜 Lilac (#c5b0f4)</option>
+                                    <option value="lime">💚 Lime (#dceeb1)</option>
+                                    <option value="coral">🧡 Coral (#f3c9b6)</option>
+                                    <option value="mint">🌿 Mint (#c8e6cd)</option>
+                                    <option value="cream">🧈 Cream (#f4ecd6)</option>
+                                    <option value="navy">🌌 Navy (#1f1d3d)</option>
+                                  </select>
+                                </div>
+
+                                {/* Icon Selector */}
+                                <div className="flex items-center gap-1.5">
+                                  <label className="text-[11px] font-bold text-gray-700 uppercase">Icon:</label>
+                                  <select
+                                    value={card.icon}
+                                    onChange={e => updateCard(idx, { icon: e.target.value as any })}
+                                    className="text-xs font-semibold bg-white border border-gray-300 rounded-lg px-2 py-1 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs"
+                                  >
+                                    <option value="sun">☀️ Solar / Sun</option>
+                                    <option value="shield">🛡️ CCTV / Shield</option>
+                                    <option value="battery">🔋 UPS / Battery</option>
+                                    <option value="cpu">💻 Sump / Controller</option>
+                                    <option value="droplets">💧 Water / Droplets</option>
+                                    <option value="zap">⚡ Power / Zap</option>
+                                    <option value="lightbulb">💡 Sensor / Light</option>
+                                    <option value="lock">🔒 Lock / Security</option>
+                                  </select>
+                                </div>
+
+                                {/* Enabled Toggle */}
+                                <label className="flex items-center gap-1.5 cursor-pointer ml-1">
+                                  <input
+                                    type="checkbox"
+                                    checked={card.enabled !== false}
+                                    onChange={e => updateCard(idx, { enabled: e.target.checked })}
+                                    className="w-4 h-4 text-blue-600 rounded"
+                                  />
+                                  <span className="text-[11px] font-medium text-gray-700">Show</span>
+                                </label>
+                              </div>
+                            </div>
+
+                            {/* Row 1: Title & Subtitle */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              <div>
+                                <label className="block text-[11px] font-semibold text-gray-700 mb-0.5">Card Heading / Title</label>
+                                <input
+                                  type="text"
+                                  value={card.title}
+                                  onChange={e => updateCard(idx, { title: e.target.value })}
+                                  placeholder="E.g. Rooftop Solar Array"
+                                  className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white font-semibold"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-[11px] font-semibold text-gray-700 mb-0.5">Card Subtitle / Tagline</label>
+                                <input
+                                  type="text"
+                                  value={card.subtitle}
+                                  onChange={e => updateCard(idx, { subtitle: e.target.value })}
+                                  placeholder="E.g. Bi-directional Net Meter"
+                                  className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Row 2: Status Tag, Metric Label, Metric Value, Badge Pill */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                              <div>
+                                <label className="block text-[11px] font-semibold text-gray-700 mb-0.5">Top-Right Status Tag</label>
+                                <input
+                                  type="text"
+                                  value={card.tag}
+                                  onChange={e => updateCard(idx, { tag: e.target.value })}
+                                  placeholder="E.g. Active · 4.8 kW or LIVE"
+                                  className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white font-mono"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-[11px] font-semibold text-gray-700 mb-0.5">Bottom Metric Label</label>
+                                <input
+                                  type="text"
+                                  value={card.metric_label}
+                                  onChange={e => updateCard(idx, { metric_label: e.target.value })}
+                                  placeholder="E.g. Daily Clean Energy"
+                                  className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-[11px] font-semibold text-gray-700 mb-0.5">Bottom Metric Value</label>
+                                <input
+                                  type="text"
+                                  value={card.metric_value}
+                                  onChange={e => updateCard(idx, { metric_value: e.target.value })}
+                                  placeholder="E.g. 28.4 kWh Generated"
+                                  className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white font-mono font-bold"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-[11px] font-semibold text-gray-700 mb-0.5">Badge Pill Tag</label>
+                                <input
+                                  type="text"
+                                  value={card.badge}
+                                  onChange={e => updateCard(idx, { badge: e.target.value })}
+                                  placeholder="E.g. -85% EB Bill"
+                                  className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           )}

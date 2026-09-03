@@ -34,6 +34,20 @@ export interface AnnouncementBarSettings {
   bg_color: 'blue' | 'emerald' | 'amber' | 'purple' | 'slate';
 }
 
+export interface HeroShowcaseCard {
+  id: string;
+  slot: 'top' | 'middle' | 'bottom_left' | 'bottom_right';
+  enabled: boolean;
+  color: 'lilac' | 'lime' | 'coral' | 'mint' | 'cream' | 'navy';
+  icon: 'sun' | 'shield' | 'battery' | 'cpu' | 'droplets' | 'zap' | 'lightbulb' | 'lock';
+  title: string;
+  subtitle: string;
+  tag: string;
+  metric_label: string;
+  metric_value: string;
+  badge: string;
+}
+
 export interface HomePageSettings {
   hero_badge: string;
   hero_title: string;
@@ -42,6 +56,27 @@ export interface HomePageSettings {
   hero_cta_secondary: string;
   stats: { label: string; value: string }[];
   why_choose_us: { title: string; desc: string }[];
+  // Full configurable hero showcase card array
+  hero_cards?: HeroShowcaseCard[];
+  // Legacy fallback fields
+  hero_solar_title?: string;
+  hero_solar_subtitle?: string;
+  hero_solar_tag?: string;
+  hero_solar_metric_label?: string;
+  hero_solar_metric_value?: string;
+  hero_solar_badge?: string;
+  hero_cctv_title?: string;
+  hero_cctv_subtitle?: string;
+  hero_cctv_tag?: string;
+  hero_cctv_metric_label?: string;
+  hero_cctv_metric_value?: string;
+  hero_cctv_badge?: string;
+  hero_ups_title?: string;
+  hero_ups_value?: string;
+  hero_ups_subtitle?: string;
+  hero_sump_title?: string;
+  hero_sump_value?: string;
+  hero_sump_subtitle?: string;
 }
 
 export interface ServicePageSettings {
@@ -131,6 +166,80 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
       { title: 'Trained In-House Engineers', desc: 'No subcontracting. Every project is executed and certified by ProHomeX certified field engineers.' },
       { title: 'Same-Day Dispatch & SLA Support', desc: 'Fast on-site resolution, emergency backup support, and scheduled annual maintenance contracts.' },
     ],
+    // Hero Live Infrastructure Showcase Cards Configurable Array
+    hero_cards: [
+      {
+        id: 'solar',
+        slot: 'top',
+        enabled: true,
+        color: 'lilac',
+        icon: 'sun',
+        title: 'Rooftop Solar Array',
+        subtitle: 'Bi-directional Net Meter',
+        tag: 'Active · 4.8 kW',
+        metric_label: 'Daily Clean Energy',
+        metric_value: '28.4 kWh Generated',
+        badge: '-85% EB Bill',
+      },
+      {
+        id: 'cctv',
+        slot: 'middle',
+        enabled: true,
+        color: 'lime',
+        icon: 'shield',
+        title: 'Perimeter Security Node',
+        subtitle: '4K ColorVu AI Stream',
+        tag: 'LIVE',
+        metric_label: 'Intelligent Detection',
+        metric_value: 'Human & Vehicle Recognized',
+        badge: '24/7 NVR Encrypted',
+      },
+      {
+        id: 'ups',
+        slot: 'bottom_left',
+        enabled: true,
+        color: 'coral',
+        icon: 'battery',
+        title: 'UPS Backup',
+        subtitle: 'Pure Sine Wave · 100%',
+        tag: '0 ms',
+        metric_label: 'Switchover',
+        metric_value: '0 ms',
+        badge: 'Online Double Conv',
+      },
+      {
+        id: 'sump',
+        slot: 'bottom_right',
+        enabled: true,
+        color: 'mint',
+        icon: 'cpu',
+        title: 'Auto Sump',
+        subtitle: 'Dry-Run Trip Safe',
+        tag: 'Auto Mode',
+        metric_label: 'Tank Level',
+        metric_value: '92% Level',
+        badge: 'Auto Cutoff Safe',
+      },
+    ],
+    // Legacy flat defaults
+    hero_solar_title: 'Rooftop Solar Array',
+    hero_solar_subtitle: 'Bi-directional Net Meter',
+    hero_solar_tag: 'Active · 4.8 kW',
+    hero_solar_metric_label: 'Daily Clean Energy',
+    hero_solar_metric_value: '28.4 kWh Generated',
+    hero_solar_badge: '-85% EB Bill',
+    hero_cctv_title: 'Perimeter Security Node',
+    hero_cctv_subtitle: '4K ColorVu AI Stream',
+    hero_cctv_tag: 'LIVE',
+    hero_cctv_metric_label: 'Intelligent Detection',
+    hero_cctv_metric_value: 'Human & Vehicle Recognized',
+    hero_cctv_badge: '24/7 NVR Encrypted',
+    hero_ups_title: 'UPS Backup',
+    hero_ups_value: '0 ms',
+    hero_ups_subtitle: 'Pure Sine Wave · 100%',
+    hero_sump_title: 'Auto Sump',
+    hero_sump_value: '92% Level',
+    hero_sump_subtitle: 'Dry-Run Trip Safe',
   },
   cctv_page: {
     hero_title: 'HD CCTV Surveillance & Smart Security',
