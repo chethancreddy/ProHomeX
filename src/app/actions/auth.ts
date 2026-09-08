@@ -97,14 +97,37 @@ export async function submitLead(formData: FormData) {
     }
   )
 
+  const name = (formData.get('name') as string)?.trim() || 'Anonymous'
+  const phone = (formData.get('phone') as string)?.trim() || ''
+  const email = (formData.get('email') as string)?.trim() || null
+  const service = (formData.get('service') as string)?.trim() || 'General Consultation'
+  const location = (formData.get('location') as string)?.trim() || 'Not Specified'
+  const requirement = (formData.get('requirement') as string)?.trim() || 'Site Assessment'
+  const userMessage = (formData.get('message') as string)?.trim() || ''
+
+  const propertyType = (formData.get('property_type') as string)?.trim()
+  const budget = (formData.get('budget') as string)?.trim()
+  const timeline = (formData.get('timeline') as string)?.trim()
+
+  const metaParts: string[] = []
+  if (propertyType) metaParts.push(`Property: ${propertyType}`)
+  if (budget) metaParts.push(`Budget: ${budget}`)
+  if (timeline) metaParts.push(`Timeline: ${timeline}`)
+
+  let combinedMessage = userMessage
+  if (metaParts.length > 0) {
+    const metaHeader = `[${metaParts.join(' | ')}]`
+    combinedMessage = combinedMessage ? `${metaHeader}\n\n${combinedMessage}` : metaHeader
+  }
+
   const { data, error } = await supabase.from('leads').insert({
-    name: formData.get('name') as string,
-    phone: formData.get('phone') as string,
-    email: formData.get('email') as string,
-    service: formData.get('service') as string,
-    location: formData.get('location') as string,
-    requirement: formData.get('requirement') as string,
-    message: formData.get('message') as string,
+    name,
+    phone,
+    email,
+    service,
+    location,
+    requirement,
+    message: combinedMessage,
   }).select('reference_number').single()
 
   if (error) {

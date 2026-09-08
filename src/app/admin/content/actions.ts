@@ -28,6 +28,7 @@ export async function saveSiteSettings(key: string, value: any): Promise<{ succe
     revalidatePath('/home-automation');
     revalidatePath('/about');
     revalidatePath('/contact');
+    revalidatePath('/request-quote');
 
     return { success: true };
   } catch (err: any) {

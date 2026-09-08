@@ -105,6 +105,48 @@ export interface ContactPageSettings {
   working_hours: string;
 }
 
+export interface QuotePageSettings {
+  badge: string;
+  title: string;
+  subtitle: string;
+  submit_button_text: string;
+  success_title: string;
+  success_subtitle: string;
+  success_note: string;
+  privacy_note: string;
+
+  // Field toggles
+  enable_email: boolean;
+  enable_service: boolean;
+  services_list: string[];
+  enable_location: boolean;
+  enable_requirement: boolean;
+  requirement_options: string[];
+  enable_message: boolean;
+  message_label: string;
+  message_placeholder: string;
+
+  // Optional extra fields
+  enable_property_type: boolean;
+  property_type_options: string[];
+  enable_budget: boolean;
+  budget_options: string[];
+  enable_timeline: boolean;
+  timeline_options: string[];
+
+  // Sidebar - What happens next
+  show_steps: boolean;
+  steps_title: string;
+  steps: string[];
+
+  // Sidebar - Prefer to call / Direct Contact
+  show_prefer_to_call: boolean;
+  prefer_to_call_title: string;
+  custom_phone?: string;
+  custom_email?: string;
+  custom_address?: string;
+}
+
 export interface AllSiteSettings {
   branding: BrandingSettings;
   whatsapp_button: WhatsAppButtonSettings;
@@ -116,6 +158,7 @@ export interface AllSiteSettings {
   automation_page: ServicePageSettings;
   about_page: AboutPageSettings;
   contact_page: ContactPageSettings;
+  quote_page: QuotePageSettings;
 }
 
 export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
@@ -306,6 +349,83 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
     email: 'info@prohomex.com',
     address: 'ProHomeX Tower, 100 Feet Ring Road, Bangalore, Karnataka 560068',
     working_hours: 'Monday – Saturday: 9:00 AM – 7:00 PM (Emergency 24/7 helpline available)',
+  },
+  quote_page: {
+    badge: 'ESTIMATE & SITE ASSESSMENT',
+    title: 'Request a Free Quote',
+    subtitle: 'Fill in your details and our team will prepare a customised quotation. No commitment required.',
+    submit_button_text: 'Submit Enquiry',
+    success_title: 'Enquiry Received!',
+    success_subtitle: 'Our engineering team will review your specifications and contact you within 24 hours.',
+    success_note: 'Save this reference ID for tracking your quotation status.',
+    privacy_note: 'By submitting, you agree to be contacted by our technical engineers. No spam — ever.',
+
+    // Field toggles & custom options
+    enable_email: true,
+    enable_service: true,
+    services_list: [
+      'CCTV Surveillance',
+      'Solar Energy System',
+      'UPS Power Solution',
+      'Home & Sump Automation',
+      'Networking & Cabling',
+      'Multiple Services',
+    ],
+    enable_location: true,
+    enable_requirement: true,
+    requirement_options: [
+      'New Turnkey Installation',
+      'Upgrade Existing System',
+      'Repair / Service',
+      'Annual Maintenance (AMC)',
+      'Site Survey Only',
+    ],
+    enable_message: true,
+    message_label: 'Additional Details / Scope',
+    message_placeholder: 'Tell us about your property size, number of cameras, power backup requirements, or current issues...',
+
+    // Optional extra fields (disabled by default, can be toggled on)
+    enable_property_type: false,
+    property_type_options: [
+      'Independent Villa / House',
+      'Apartment / Flat',
+      'Commercial Office',
+      'Industrial Plant / Warehouse',
+      'Farmhouse / Estate',
+    ],
+    enable_budget: false,
+    budget_options: [
+      'Under ₹25,000',
+      '₹25,000 - ₹50,000',
+      '₹50,000 - ₹1,00,000',
+      '₹1,00,000 - ₹3,00,000',
+      '₹3,00,000+',
+    ],
+    enable_timeline: false,
+    timeline_options: [
+      'Immediate / Within a week',
+      'Within 15-30 Days',
+      'Next 1-3 Months',
+      'Just Planning / Exploring',
+    ],
+
+    // Sidebar - What happens next
+    show_steps: true,
+    steps_title: 'What happens next?',
+    steps: [
+      'Our team reviews your enquiry within a few hours',
+      'We call to understand your requirements better',
+      'A detailed, itemised quote is prepared',
+      'Site visit scheduled if needed',
+      'You approve and we begin work',
+    ],
+
+    // Sidebar - Prefer to call
+    show_prefer_to_call: true,
+    prefer_to_call_title: 'Prefer to call?',
+    custom_phone: '+91 98765 43210',
+    custom_email: 'info@prohomex.com',
+    custom_address: 'Bangalore, Karnataka, India',
   },
 };
 

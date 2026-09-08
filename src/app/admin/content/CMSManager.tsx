@@ -4,9 +4,10 @@ import { useState, useTransition } from 'react';
 import {
   Globe, MessageCircle, Building2, Megaphone, Home,
   Shield, Sun, Battery, Info, PhoneCall, Save, CheckCircle,
-  AlertCircle, Sparkles, ExternalLink, RefreshCw, Cpu
+  AlertCircle, Sparkles, ExternalLink, RefreshCw, Cpu,
+  FileText, ListChecks, Plus, Trash2, Check
 } from 'lucide-react';
-import { AllSiteSettings, HeroShowcaseCard } from '@/lib/cms';
+import { AllSiteSettings, HeroShowcaseCard, DEFAULT_SITE_SETTINGS } from '@/lib/cms';
 import { saveSiteSettings } from './actions';
 
 interface Props {
@@ -14,7 +15,14 @@ interface Props {
 }
 
 export default function CMSManager({ initialSettings }: Props) {
-  const [settings, setSettings] = useState<AllSiteSettings>(initialSettings);
+  const [settings, setSettings] = useState<AllSiteSettings>(() => ({
+    ...DEFAULT_SITE_SETTINGS,
+    ...initialSettings,
+    quote_page: {
+      ...DEFAULT_SITE_SETTINGS.quote_page,
+      ...(initialSettings?.quote_page || {}),
+    },
+  }));
   const [activeTab, setActiveTab] = useState<string>('whatsapp');
   const [isPending, startTransition] = useTransition();
   const [toastMessage, setToastMessage] = useState<string>('');
@@ -42,6 +50,7 @@ export default function CMSManager({ initialSettings }: Props) {
     { id: 'branding', label: 'Company & Contact', icon: Building2 },
     { id: 'announcement', label: 'Announcement Bar', icon: Megaphone, badge: settings.announcement_bar.enabled ? 'Live' : 'Off' },
     { id: 'home', label: 'Home Page', icon: Home },
+    { id: 'quote', label: 'Quote Page & Form', icon: FileText },
     { id: 'cctv', label: 'CCTV Page', icon: Shield },
     { id: 'solar', label: 'Solar Page', icon: Sun },
     { id: 'ups', label: 'UPS Page', icon: Battery },
@@ -1386,6 +1395,732 @@ export default function CMSManager({ initialSettings }: Props) {
                   })}
                   className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+              </div>
+            </div>
+          )}
+
+          {/* QUOTE PAGE CMS TAB */}
+          {activeTab === 'quote' && (
+            <div className="space-y-6">
+              {/* Header with Save Button */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-100">
+                <div>
+                  <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
+                    <FileText size={18} className="text-blue-600" />
+                    Request a Free Quote Form &amp; Page CMS
+                  </h2>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Toggle individual form fields ON/OFF, edit titles &amp; copy, configure dropdown options, and customize the &quot;Prefer to call?&quot; &amp; &quot;What happens next?&quot; sidebar.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => handleSave('quote_page')}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 disabled:opacity-50 shadow-sm transition-all"
+                >
+                  <Save size={14} /> {isPending ? 'Saving...' : 'Save Quote Settings'}
+                </button>
+              </div>
+
+              {/* 1. Page Header & Hero Copy */}
+              <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">1. Page Header &amp; Copy</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Eyebrow Badge</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.badge}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, badge: e.target.value }
+                      })}
+                      placeholder="ESTIMATE & SITE ASSESSMENT"
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Main Heading</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.title}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, title: e.target.value }
+                      })}
+                      placeholder="Request a Free Quote"
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Subtitle / Supporting Description</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.subtitle}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, subtitle: e.target.value }
+                      })}
+                      placeholder="Fill in your details and our team will prepare a customised quotation..."
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Submit Button Text</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.submit_button_text}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, submit_button_text: e.target.value }
+                      })}
+                      placeholder="Submit Enquiry"
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Form Fields ON/OFF Switches & Options */}
+              <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">2. Form Fields &amp; ON/OFF Toggles</h3>
+                  </div>
+                  <span className="text-[11px] text-slate-500">Disable fields you don&apos;t want to capture now</span>
+                </div>
+
+                <div className="space-y-3">
+                  {/* Full Name (Mandatory) */}
+                  <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="text-xs font-bold text-gray-900">Full Name</p>
+                        <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full">Mandatory</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500">Always active and required for lead identification.</p>
+                    </div>
+                    <span className="text-xs font-semibold text-gray-400">Always ON</span>
+                  </div>
+
+                  {/* Phone Number (Mandatory) */}
+                  <div className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="text-xs font-bold text-gray-900">Phone Number</p>
+                        <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full">Mandatory</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500">Direct phone number for instant quotes &amp; WhatsApp contact.</p>
+                    </div>
+                    <span className="text-xs font-semibold text-gray-400">Always ON</span>
+                  </div>
+
+                  {/* Email Address (Toggle ON/OFF) */}
+                  <div className="p-3.5 bg-white rounded-xl border border-gray-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-bold text-gray-900">Email Address Field</p>
+                          <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${settings.quote_page.enable_email ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {settings.quote_page.enable_email ? 'Enabled (ON)' : 'Disabled (OFF)'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-500">Capture optional customer email address.</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={settings.quote_page.enable_email}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, enable_email: e.target.checked }
+                          })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Service Required (Toggle ON/OFF + Options) */}
+                  <div className="p-3.5 bg-white rounded-xl border border-gray-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-bold text-gray-900">Service Required Field &amp; Options</p>
+                          <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${settings.quote_page.enable_service ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {settings.quote_page.enable_service ? 'Enabled (ON)' : 'Disabled (OFF)'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-500">Dropdown to select required service (CCTV, Solar, UPS, Automation, etc.).</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={settings.quote_page.enable_service}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, enable_service: e.target.checked }
+                          })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+
+                    {settings.quote_page.enable_service && (
+                      <div className="pt-2 border-t border-gray-100 space-y-2">
+                        <label className="block text-[11px] font-bold text-gray-600 uppercase">Available Service Options</label>
+                        <div className="space-y-1.5">
+                          {settings.quote_page.services_list.map((srv, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={srv}
+                                onChange={e => {
+                                  const updated = [...settings.quote_page.services_list];
+                                  updated[idx] = e.target.value;
+                                  setSettings({
+                                    ...settings,
+                                    quote_page: { ...settings.quote_page, services_list: updated }
+                                  });
+                                }}
+                                className="flex-1 text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = settings.quote_page.services_list.filter((_, i) => i !== idx);
+                                  setSettings({
+                                    ...settings,
+                                    quote_page: { ...settings.quote_page, services_list: updated }
+                                  });
+                                }}
+                                className="p-1.5 text-gray-400 hover:text-red-600 rounded-lg transition-colors"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSettings({
+                              ...settings,
+                              quote_page: {
+                                ...settings.quote_page,
+                                services_list: [...settings.quote_page.services_list, 'New Service Option']
+                              }
+                            });
+                          }}
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 pt-1"
+                        >
+                          <Plus size={13} /> Add Service Option
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Location / Area (Toggle ON/OFF) */}
+                  <div className="p-3.5 bg-white rounded-xl border border-gray-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-bold text-gray-900">Location / Area Field</p>
+                          <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${settings.quote_page.enable_location ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {settings.quote_page.enable_location ? 'Enabled (ON)' : 'Disabled (OFF)'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-500">Captures customer&apos;s site location, city or pincode.</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={settings.quote_page.enable_location}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, enable_location: e.target.checked }
+                          })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Your Requirement (Toggle ON/OFF + Options) */}
+                  <div className="p-3.5 bg-white rounded-xl border border-gray-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-bold text-gray-900">Your Requirement (Nature of Work) Field</p>
+                          <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${settings.quote_page.enable_requirement ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {settings.quote_page.enable_requirement ? 'Enabled (ON)' : 'Disabled (OFF)'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-500">Dropdown to select work type (New Installation, Upgrade, AMC, Repair, Survey).</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={settings.quote_page.enable_requirement}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, enable_requirement: e.target.checked }
+                          })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+
+                    {settings.quote_page.enable_requirement && (
+                      <div className="pt-2 border-t border-gray-100 space-y-2">
+                        <label className="block text-[11px] font-bold text-gray-600 uppercase">Available Requirement Options</label>
+                        <div className="space-y-1.5">
+                          {settings.quote_page.requirement_options.map((req, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={req}
+                                onChange={e => {
+                                  const updated = [...settings.quote_page.requirement_options];
+                                  updated[idx] = e.target.value;
+                                  setSettings({
+                                    ...settings,
+                                    quote_page: { ...settings.quote_page, requirement_options: updated }
+                                  });
+                                }}
+                                className="flex-1 text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = settings.quote_page.requirement_options.filter((_, i) => i !== idx);
+                                  setSettings({
+                                    ...settings,
+                                    quote_page: { ...settings.quote_page, requirement_options: updated }
+                                  });
+                                }}
+                                className="p-1.5 text-gray-400 hover:text-red-600 rounded-lg transition-colors"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSettings({
+                              ...settings,
+                              quote_page: {
+                                ...settings.quote_page,
+                                requirement_options: [...settings.quote_page.requirement_options, 'New Requirement Option']
+                              }
+                            });
+                          }}
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 pt-1"
+                        >
+                          <Plus size={13} /> Add Requirement Option
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Additional Details (Toggle ON/OFF + Placeholder) */}
+                  <div className="p-3.5 bg-white rounded-xl border border-gray-200 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-xs font-bold text-gray-900">Additional Details / Message Box</p>
+                          <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${settings.quote_page.enable_message ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                            {settings.quote_page.enable_message ? 'Enabled (ON)' : 'Disabled (OFF)'}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-500">Textarea where customer can describe specific site details or problems.</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={settings.quote_page.enable_message}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, enable_message: e.target.checked }
+                          })}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+
+                    {settings.quote_page.enable_message && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-gray-100">
+                        <div>
+                          <label className="block text-[11px] font-bold text-gray-600 uppercase mb-1">Field Label</label>
+                          <input
+                            type="text"
+                            value={settings.quote_page.message_label}
+                            onChange={e => setSettings({
+                              ...settings,
+                              quote_page: { ...settings.quote_page, message_label: e.target.value }
+                            })}
+                            placeholder="Additional Details"
+                            className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-bold text-gray-600 uppercase mb-1">Placeholder Text</label>
+                          <input
+                            type="text"
+                            value={settings.quote_page.message_placeholder}
+                            onChange={e => setSettings({
+                              ...settings,
+                              quote_page: { ...settings.quote_page, message_placeholder: e.target.value }
+                            })}
+                            placeholder="Tell us about your property size, number of cameras..."
+                            className="w-full text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Optional Extra Fields: Property Type, Budget, Timeline */}
+                  <div className="p-3.5 bg-slate-50 rounded-xl border border-dashed border-gray-300 space-y-4">
+                    <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Advanced Extra Fields (Optional)</p>
+
+                    {/* Property Type */}
+                    <div className="p-3 bg-white rounded-xl border border-gray-200 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs font-bold text-gray-900">Property / Facility Type</p>
+                          <p className="text-[11px] text-gray-500">Villa, Apartment, Commercial Office, Industrial Plant</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={settings.quote_page.enable_property_type}
+                            onChange={e => setSettings({
+                              ...settings,
+                              quote_page: { ...settings.quote_page, enable_property_type: e.target.checked }
+                            })}
+                            className="sr-only peer"
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Budget Range */}
+                    <div className="p-3 bg-white rounded-xl border border-gray-200 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs font-bold text-gray-900">Estimated Budget Range</p>
+                          <p className="text-[11px] text-gray-500">Under ₹25k, ₹25k-₹50k, ₹50k-₹1L, ₹1L-₹3L+</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={settings.quote_page.enable_budget}
+                            onChange={e => setSettings({
+                              ...settings,
+                              quote_page: { ...settings.quote_page, enable_budget: e.target.checked }
+                            })}
+                            className="sr-only peer"
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Preferred Timeline */}
+                    <div className="p-3 bg-white rounded-xl border border-gray-200 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs font-bold text-gray-900">Installation Timeline / Urgency</p>
+                          <p className="text-[11px] text-gray-500">Immediate, Within 15-30 Days, Next 1-3 Months</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={settings.quote_page.enable_timeline}
+                            onChange={e => setSettings({
+                              ...settings,
+                              quote_page: { ...settings.quote_page, enable_timeline: e.target.checked }
+                            })}
+                            className="sr-only peer"
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. Sidebar: "Prefer to call?" (Full Option to Edit) */}
+              <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">3. Sidebar &quot;Prefer to call?&quot; Box</h3>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={settings.quote_page.show_prefer_to_call}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, show_prefer_to_call: e.target.checked }
+                      })}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  </label>
+                </div>
+
+                {settings.quote_page.show_prefer_to_call && (
+                  <div className="space-y-3 pt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Box Title / Headline</label>
+                        <input
+                          type="text"
+                          value={settings.quote_page.prefer_to_call_title}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, prefer_to_call_title: e.target.value }
+                          })}
+                          placeholder="Prefer to call?"
+                          className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Direct Phone Number</label>
+                        <input
+                          type="text"
+                          value={settings.quote_page.custom_phone || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, custom_phone: e.target.value }
+                          })}
+                          placeholder="+91 98765 43210"
+                          className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Contact Email</label>
+                        <input
+                          type="email"
+                          value={settings.quote_page.custom_email || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, custom_email: e.target.value }
+                          })}
+                          placeholder="info@prohomex.com"
+                          className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Location / Office Address</label>
+                        <input
+                          type="text"
+                          value={settings.quote_page.custom_address || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            quote_page: { ...settings.quote_page, custom_address: e.target.value }
+                          })}
+                          placeholder="Bangalore, Karnataka, India"
+                          className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 4. Sidebar: "What happens next?" */}
+              <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">4. Sidebar &quot;What happens next?&quot; Steps</h3>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={settings.quote_page.show_steps}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, show_steps: e.target.checked }
+                      })}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  </label>
+                </div>
+
+                {settings.quote_page.show_steps && (
+                  <div className="space-y-3 pt-2">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Steps Box Title</label>
+                      <input
+                        type="text"
+                        value={settings.quote_page.steps_title}
+                        onChange={e => setSettings({
+                          ...settings,
+                          quote_page: { ...settings.quote_page, steps_title: e.target.value }
+                        })}
+                        placeholder="What happens next?"
+                        className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-[11px] font-bold text-gray-600 uppercase">Process Steps List</label>
+                      {settings.quote_page.steps.map((step, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center flex-shrink-0">
+                            {idx + 1}
+                          </span>
+                          <input
+                            type="text"
+                            value={step}
+                            onChange={e => {
+                              const updated = [...settings.quote_page.steps];
+                              updated[idx] = e.target.value;
+                              setSettings({
+                                ...settings,
+                                quote_page: { ...settings.quote_page, steps: updated }
+                              });
+                            }}
+                            className="flex-1 text-xs border border-gray-300 rounded-lg px-2.5 py-1.5 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = settings.quote_page.steps.filter((_, i) => i !== idx);
+                              setSettings({
+                                ...settings,
+                                quote_page: { ...settings.quote_page, steps: updated }
+                              });
+                            }}
+                            className="p-1.5 text-gray-400 hover:text-red-600 rounded-lg transition-colors"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSettings({
+                            ...settings,
+                            quote_page: {
+                              ...settings.quote_page,
+                              steps: [...settings.quote_page.steps, 'Next process step description']
+                            }
+                          });
+                        }}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 pt-1"
+                      >
+                        <Plus size={13} /> Add Process Step
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* 5. Success Screen & Privacy Policy Note */}
+              <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-600"></span>
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">5. Success Confirmation &amp; Disclaimer</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Success Title</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.success_title}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, success_title: e.target.value }
+                      })}
+                      placeholder="Enquiry Received!"
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Success Subtitle</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.success_subtitle}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, success_subtitle: e.target.value }
+                      })}
+                      placeholder="Our team will contact you within 24 hours."
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Reference ID Helper Note</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.success_note}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, success_note: e.target.value }
+                      })}
+                      placeholder="Save this for your records."
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Privacy / Anti-Spam Note</label>
+                    <input
+                      type="text"
+                      value={settings.quote_page.privacy_note}
+                      onChange={e => setSettings({
+                        ...settings,
+                        quote_page: { ...settings.quote_page, privacy_note: e.target.value }
+                      })}
+                      placeholder="By submitting, you agree to be contacted by our team. No spam — ever."
+                      className="w-full text-sm border border-gray-300 rounded-xl px-3 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Save Button */}
+              <div className="flex justify-end pt-2">
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => handleSave('quote_page')}
+                  className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 disabled:opacity-50 shadow-sm transition-all"
+                >
+                  <Save size={14} /> {isPending ? 'Saving Settings...' : 'Save Quote Page Settings'}
+                </button>
               </div>
             </div>
           )}
