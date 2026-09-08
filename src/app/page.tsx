@@ -4,7 +4,7 @@ import {
   Shield, Zap, Battery, Phone, ArrowRight, ArrowUpRight,
   CheckCircle2, Sparkles, Cpu, Lock, Sun, RefreshCw, Layers,
   Droplets, Lightbulb, Building2, Home as HomeIcon, Factory,
-  Check, Award, Clock, Wrench, ShieldCheck, FileCheck2
+  Check, Award, Clock, Wrench, ShieldCheck, FileCheck2, Camera, Smartphone
 } from 'lucide-react';
 import { getAllSiteSettings, HeroShowcaseCard } from '@/lib/cms';
 import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton';
@@ -836,6 +836,183 @@ export default async function HomePage() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ALL-IN-ONE UNIFIED BUILDING INFRASTRUCTURE FRAME */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-neutral-950 text-white rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-16 border border-neutral-800 shadow-2xl relative overflow-hidden">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-lime-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Section Header */}
+            <div className="max-w-3xl mb-10 md:mb-12">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-[#dceeb1] text-[11px] font-mono uppercase tracking-widest mb-4">
+                <Sparkles size={13} className="text-[#dceeb1]" />
+                <span>Unified Master Infrastructure</span>
+              </div>
+              <h2 className="display-lg text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white mb-4">
+                All 4 Critical Systems in One Unified Master Frame
+              </h2>
+              <p className="text-base sm:text-lg font-light text-neutral-300 leading-relaxed">
+                Eliminate the headache of managing 4 separate contractors. ProHomeX engineers, installs, and maintains your rooftop solar, AI surveillance, zero-downtime UPS, and smart water sump systems under one single turnkey umbrella.
+              </p>
+            </div>
+
+            {/* Master Visual Blueprint & Cross-Section View */}
+            <div className="relative rounded-[24px] overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl mb-10 group">
+              <div className="relative aspect-[16/9] w-full">
+                <Image
+                  src="/images/unified_building_infrastructure.jpg"
+                  alt="All-in-One Building Infrastructure Blueprint & Cross-Section Visual"
+                  fill
+                  priority
+                  sizes="(max-width: 1280px) 100vw, 1280px"
+                  className="object-cover w-full h-full transform group-hover:scale-[1.01] transition-transform duration-700"
+                />
+                
+                {/* Subtle Gradient Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-neutral-950/40 pointer-events-none" />
+
+                {/* Floating Telemetry Badges on the Master Frame */}
+                {/* 1. Solar Rooftop */}
+                <div className="absolute top-4 sm:top-8 left-4 sm:left-8 bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 text-white p-3 sm:p-4 rounded-2xl shadow-xl max-w-[210px] sm:max-w-[260px]">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-amber-300 font-mono">
+                      <Sun size={14} /> 01 / SOLAR ARRAY
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                  </div>
+                  <p className="text-xs font-semibold text-white">Bi-Directional Net-Meter</p>
+                  <p className="text-[11px] text-neutral-400 mt-0.5">Tier-1 Mono PV • Slashing 85% EB Bills</p>
+                </div>
+
+                {/* 2. CCTV Perimeter */}
+                <div className="absolute top-4 sm:top-8 right-4 sm:right-8 bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 text-white p-3 sm:p-4 rounded-2xl shadow-xl max-w-[210px] sm:max-w-[260px] text-right">
+                  <div className="flex items-center justify-end gap-2 mb-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-lime-400 font-mono">
+                      02 / AI 4K CCTV <Camera size={14} />
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-white">Perimeter Motion &amp; ANPR</p>
+                  <p className="text-[11px] text-neutral-400 mt-0.5">ColorVu Night Vision • Encrypted NVR</p>
+                </div>
+
+                {/* 3. UPS Datacenter Power */}
+                <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 text-white p-3 sm:p-4 rounded-2xl shadow-xl max-w-[210px] sm:max-w-[260px]">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-orange-400 font-mono">
+                      <Zap size={14} /> 03 / ZERO-MS UPS
+                    </span>
+                    <span className="text-[10px] font-mono bg-orange-950 text-orange-300 border border-orange-800 px-1.5 py-0.5 rounded">0 ms</span>
+                  </div>
+                  <p className="text-xs font-semibold text-white">Pure Sine Double-Conversion</p>
+                  <p className="text-[11px] text-neutral-400 mt-0.5">Lifepo4/Tubular • Server &amp; Lift Safety</p>
+                </div>
+
+                {/* 4. Sump & Smart Automation */}
+                <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8 bg-neutral-900/90 backdrop-blur-md border border-neutral-700/80 text-white p-3 sm:p-4 rounded-2xl shadow-xl max-w-[210px] sm:max-w-[260px] text-right">
+                  <div className="flex items-center justify-end gap-2 mb-1">
+                    <span className="text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-800 px-1.5 py-0.5 rounded">AUTO</span>
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-cyan-300 font-mono">
+                      04 / SUMP AUTO <Cpu size={14} />
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-white">Dual-Tank Ultrasonic Sync</p>
+                  <p className="text-[11px] text-neutral-400 mt-0.5">Dry-Run Protection • Glass Touch Panels</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 4 Integrated Solution Pillar Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <Link href="/solar" className="bg-neutral-900/90 hover:bg-neutral-800/90 p-5 rounded-2xl border border-neutral-800 hover:border-amber-400/50 transition-all group">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2.5 rounded-xl bg-amber-400/10 text-amber-400 border border-amber-400/20">
+                    <Sun size={20} />
+                  </div>
+                  <span className="text-[11px] font-mono text-neutral-400 group-hover:text-amber-300 flex items-center gap-1">
+                    Explore <ArrowRight size={12} />
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1">Solar Rooftop Plants</h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  3 kW to 500 kW grid-tied arrays with end-to-end DISCOM liaison and subsidies.
+                </p>
+              </Link>
+
+              <Link href="/cctv" className="bg-neutral-900/90 hover:bg-neutral-800/90 p-5 rounded-2xl border border-neutral-800 hover:border-lime-400/50 transition-all group">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2.5 rounded-xl bg-lime-400/10 text-lime-400 border border-lime-400/20">
+                    <Camera size={20} />
+                  </div>
+                  <span className="text-[11px] font-mono text-neutral-400 group-hover:text-lime-300 flex items-center gap-1">
+                    Explore <ArrowRight size={12} />
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1">AI 4K CCTV Systems</h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  ColorVu perimeter optics, cloud backup, and AI vehicle/human filtering.
+                </p>
+              </Link>
+
+              <Link href="/ups" className="bg-neutral-900/90 hover:bg-neutral-800/90 p-5 rounded-2xl border border-neutral-800 hover:border-orange-400/50 transition-all group">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2.5 rounded-xl bg-orange-400/10 text-orange-400 border border-orange-400/20">
+                    <Zap size={20} />
+                  </div>
+                  <span className="text-[11px] font-mono text-neutral-400 group-hover:text-orange-300 flex items-center gap-1">
+                    Explore <ArrowRight size={12} />
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1">Online UPS Resilience</h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  0-millisecond true switchover for lifts, data racks, diagnostic labs &amp; villas.
+                </p>
+              </Link>
+
+              <Link href="/home-automation" className="bg-neutral-900/90 hover:bg-neutral-800/90 p-5 rounded-2xl border border-neutral-800 hover:border-cyan-400/50 transition-all group">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="p-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 border border-cyan-400/20">
+                    <Cpu size={20} />
+                  </div>
+                  <span className="text-[11px] font-mono text-neutral-400 group-hover:text-cyan-300 flex items-center gap-1">
+                    Explore <ArrowRight size={12} />
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-white mb-1">Water &amp; Smart Controls</h4>
+                <p className="text-xs text-neutral-400 leading-relaxed">
+                  Autonomous dry-run safe sump motors, overflow prevention &amp; glass switchboards.
+                </p>
+              </Link>
+            </div>
+
+            {/* Turnkey Single-Contractor Benefits Banner */}
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex flex-wrap items-center gap-6 text-xs text-neutral-300">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-[#dceeb1]" />
+                  <span className="font-semibold text-white">Single Point of Contact</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-[#dceeb1]" />
+                  <span className="font-semibold text-white">Unified Mobile App &amp; Web Portal</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-[#dceeb1]" />
+                  <span className="font-semibold text-white">Consolidated Annual AMC</span>
+                </div>
+              </div>
+
+              <Link
+                href="/request-quote"
+                className="inline-flex items-center gap-2 bg-[#dceeb1] text-black px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[#cbe394] transition-all whitespace-nowrap active:scale-98 shadow-sm"
+              >
+                Get Complete Building Quote <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
         </section>
