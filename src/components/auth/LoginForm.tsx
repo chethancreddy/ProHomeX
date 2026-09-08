@@ -36,6 +36,9 @@ export function LoginForm() {
         const result = await loginWithPassword(formData);
         if (result?.error) {
           setError(result.error);
+        } else if (result?.redirectUrl) {
+          router.push(result.redirectUrl);
+          router.refresh();
         }
       } else if (mode === 'sign-up') {
         const { error } = await supabase.auth.signUp({
@@ -61,6 +64,9 @@ export function LoginForm() {
         }
       }
     } catch (err: any) {
+      if (err?.message === 'NEXT_REDIRECT' || err?.digest?.includes('NEXT_REDIRECT')) {
+        return;
+      }
       setError(err.message || 'An error occurred.');
     } finally {
       setIsLoading(false);

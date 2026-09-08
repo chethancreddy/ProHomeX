@@ -31,14 +31,34 @@ export async function updateLeadStatus(
       .eq('id', leadId);
 
     if (error) {
-      // If error is column does not exist (e.g. remarks column pending migration in active DB), fallback to status only
+      // If error is column does not exist (e.g. remarks column pending migration in active DB), fallback to status + message
       if (error.message.includes('column "remarks"') || error.message.includes('column "closed_at"')) {
+        let updatedMessage: string | undefined;
+
+        if (remarks) {
+          const { data: existingLead } = await supabase
+            .from('leads')
+            .select('message')
+            .eq('id', leadId)
+            .single();
+
+          let msg = existingLead?.message || '';
+          msg = msg.replace(/\[Closed:\s*[^\]]+\]\n\n?/g, '');
+          updatedMessage = `[Closed: ${remarks}]\n\n${msg}`.trim();
+        }
+
+        const fallbackPayload: Record<string, any> = {
+          status,
+          updated_at: new Date().toISOString(),
+        };
+
+        if (updatedMessage !== undefined) {
+          fallbackPayload.message = updatedMessage;
+        }
+
         const { error: fallbackError } = await supabase
           .from('leads')
-          .update({
-            status,
-            updated_at: new Date().toISOString(),
-          })
+          .update(fallbackPayload)
           .eq('id', leadId);
 
         if (fallbackError) {

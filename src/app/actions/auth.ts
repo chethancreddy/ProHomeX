@@ -47,11 +47,9 @@ export async function loginWithPassword(formData: FormData) {
 
   const actualRole = profile?.role || role
 
-  if (actualRole === 'CUSTOMER') {
-    redirect('/customer/dashboard')
-  } else {
-    redirect('/admin/dashboard')
-  }
+  const redirectUrl = actualRole === 'CUSTOMER' ? '/customer/dashboard' : '/admin/dashboard'
+
+  return { success: true, redirectUrl }
 }
 
 export async function signOut() {

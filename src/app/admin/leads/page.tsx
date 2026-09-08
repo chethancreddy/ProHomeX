@@ -13,15 +13,33 @@ export default async function AdminLeadsPage() {
     .order('created_at', { ascending: false });
 
   if (error) {
-    console.error('Error fetching leads with remarks:', error.message);
-    // If remarks column does not exist yet, fallback to legacy columns
+    // If remarks column does not exist yet in DB, fallback to legacy schema seamlessly
     const { data: fallbackLeads } = await supabase
       .from('leads')
       .select('id, reference_number, name, phone, email, service, location, requirement, message, status, created_at, updated_at')
       .order('created_at', { ascending: false });
 
-    return <LeadsManagerClient initialLeads={(fallbackLeads as LeadItem[]) || []} />;
+    const parsedFallback = (fallbackLeads || []).map((l: any) => {
+      let remarks = l.remarks || '';
+      if (!remarks && l.message && l.message.includes('[Closed:')) {
+        const match = l.message.match(/\[Closed:\s*([^\]]+)\]/);
+        if (match) remarks = match[1];
+      }
+      return { ...l, remarks };
+    });
+
+    return <LeadsManagerClient initialLeads={(parsedFallback as LeadItem[]) || []} />;
   }
 
-  return <LeadsManagerClient initialLeads={(leads as LeadItem[]) || []} />;
+  // Parse remarks if stored in message fallback
+  const parsedLeads = (leads || []).map((l: any) => {
+    let remarks = l.remarks || '';
+    if (!remarks && l.message && l.message.includes('[Closed:')) {
+      const match = l.message.match(/\[Closed:\s*([^\]]+)\]/);
+      if (match) remarks = match[1];
+    }
+    return { ...l, remarks };
+  });
+
+  return <LeadsManagerClient initialLeads={(parsedLeads as LeadItem[]) || []} />;
 }
