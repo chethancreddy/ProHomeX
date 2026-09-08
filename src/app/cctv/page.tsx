@@ -1,14 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Shield, Camera, Monitor, Wifi, ArrowRight, CheckCircle2, ArrowUpRight, Check, ShieldCheck, Eye, Lock } from 'lucide-react';
-import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+import { getSectionSettings, ServicePageSettings, BrandingSettings, SiteMediaSettings } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
 export default async function CCTVPage() {
-  const [cctv, branding] = await Promise.all([
+  const [cctv, branding, media] = await Promise.all([
     getSectionSettings<ServicePageSettings>('cctv_page'),
     getSectionSettings<BrandingSettings>('branding'),
+    getSectionSettings<SiteMediaSettings>('media'),
   ]);
 
   return (
@@ -59,7 +60,7 @@ export default async function CCTVPage() {
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/cctv_commercial_security.jpg"
+                    src={media?.cctv_image || '/images/cctv_commercial_security.jpg'}
                     alt="CCTV Installation on Modern Commercial Building"
                     width={800}
                     height={500}

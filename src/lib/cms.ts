@@ -147,10 +147,22 @@ export interface QuotePageSettings {
   custom_address?: string;
 }
 
+export interface SiteMediaSettings {
+  solar_image: string;
+  cctv_image: string;
+  ups_image: string;
+  automation_image: string;
+  engineer_image: string;
+  unified_frame_image: string;
+  solar_water_image?: string;
+  solar_power_image?: string;
+}
+
 export interface AllSiteSettings {
   branding: BrandingSettings;
   whatsapp_button: WhatsAppButtonSettings;
   announcement_bar: AnnouncementBarSettings;
+  media: SiteMediaSettings;
   home_page: HomePageSettings;
   cctv_page: ServicePageSettings;
   solar_page: ServicePageSettings;
@@ -192,10 +204,20 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
     link: '/request-quote',
     bg_color: 'blue',
   },
+  media: {
+    solar_image: '/images/solar_water_heater_rooftop.jpg',
+    cctv_image: '/images/cctv_commercial_security.jpg',
+    ups_image: '/images/ups_power_datacenter.jpg',
+    automation_image: '/images/smart_home_automation.jpg',
+    engineer_image: '/images/engineer_site_inspection.jpg',
+    unified_frame_image: '/images/unified_building_infrastructure.jpg',
+    solar_water_image: '/images/solar_water_heater_rooftop.jpg',
+    solar_power_image: '/images/solar_rooftop_project.jpg',
+  },
   home_page: {
     hero_badge: 'Certified Installation & Maintenance Partner',
     hero_title: 'Enterprise Security, Solar & Power Backup Solutions',
-    hero_subtitle: 'From high-definition CCTV surveillance and rooftop solar to uninterrupted UPS power backup — ProHomeX delivers turnkey engineering for homes, offices, and industries.',
+    hero_subtitle: 'From high-definition CCTV surveillance and solar water heating to uninterrupted UPS power backup — ProHomeX delivers turnkey engineering for homes, offices, and industries.',
     hero_cta_primary: 'Get Free Quote',
     hero_cta_secondary: 'Explore Solutions',
     stats: [
@@ -205,7 +227,7 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
       { label: 'Rapid Support', value: '24/7 SLA' },
     ],
     why_choose_us: [
-      { title: 'Authorized OEM Brands', desc: 'We only supply certified cameras, tier-1 solar panels, and pure sine-wave UPS systems with direct manufacturer warranties.' },
+      { title: 'Authorized OEM Brands', desc: 'We only supply certified cameras, tier-1 solar water tanks & panels, and pure sine-wave UPS systems with direct manufacturer warranties.' },
       { title: 'Trained In-House Engineers', desc: 'No subcontracting. Every project is executed and certified by ProHomeX certified field engineers.' },
       { title: 'Same-Day Dispatch & SLA Support', desc: 'Fast on-site resolution, emergency backup support, and scheduled annual maintenance contracts.' },
     ],
@@ -217,12 +239,12 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
         enabled: true,
         color: 'lilac',
         icon: 'sun',
-        title: 'Rooftop Solar Array',
-        subtitle: 'Bi-directional Net Meter',
-        tag: 'Active · 4.8 kW',
-        metric_label: 'Daily Clean Energy',
-        metric_value: '28.4 kWh Generated',
-        badge: '-85% EB Bill',
+        title: 'Solar Water & Power',
+        subtitle: 'Hot Water (ETC) & PV Array',
+        tag: '65°C Hot Water · 4.8 kW',
+        metric_label: 'Primary Thermal & Net-Meter',
+        metric_value: '24/7 Pressurized Hot Water',
+        badge: '-80% Water & EB Bills',
       },
       {
         id: 'cctv',
@@ -265,12 +287,12 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
       },
     ],
     // Legacy flat defaults
-    hero_solar_title: 'Rooftop Solar Array',
-    hero_solar_subtitle: 'Bi-directional Net Meter',
-    hero_solar_tag: 'Active · 4.8 kW',
-    hero_solar_metric_label: 'Daily Clean Energy',
-    hero_solar_metric_value: '28.4 kWh Generated',
-    hero_solar_badge: '-85% EB Bill',
+    hero_solar_title: 'Solar Water & Power',
+    hero_solar_subtitle: 'Hot Water (ETC) & PV Array',
+    hero_solar_tag: '65°C Hot Water · 4.8 kW',
+    hero_solar_metric_label: 'Primary Thermal & Net-Meter',
+    hero_solar_metric_value: '24/7 Pressurized Hot Water',
+    hero_solar_badge: '-80% Water & EB Bills',
     hero_cctv_title: 'Perimeter Security Node',
     hero_cctv_subtitle: '4K ColorVu AI Stream',
     hero_cctv_tag: 'LIVE',
@@ -298,16 +320,17 @@ export const DEFAULT_SITE_SETTINGS: AllSiteSettings = {
     ],
   },
   solar_page: {
-    hero_title: 'Rooftop Solar Power & Net-Metering',
-    hero_subtitle: 'Cut your electricity bills by up to 90% with Tier-1 On-Grid, Off-Grid, and Hybrid Solar systems with government subsidy support.',
-    subsidy_text: 'Direct MNRE / Government Subsidy assistance up to ₹78,000 for residential rooftops.',
-    warranty_text: '25-Year Performance Warranty on Solar PV Modules & 5-Year Inverter Warranty.',
+    hero_title: 'Solar Water Heaters & Rooftop Solar Power',
+    hero_subtitle: 'High-performance Solar Water Heating Systems (ETC/FPC Pressurized & Non-Pressurized) as our primary specialty, alongside turnkey On-Grid & Hybrid Solar Power Plants.',
+    subsidy_text: 'Direct MNRE / Government Subsidy assistance up to ₹78,000 for residential solar PV & energy savings.',
+    warranty_text: '5-Year Warranty on Solar Water Heater SS Tanks & 25-Year Performance Warranty on Solar PV Modules.',
     features: [
-      'Monocrystalline High-Efficiency Half-Cut Solar Panels',
-      'Complete Net-Metering Approval & Discom Liaison',
-      'Hybrid Inverters with Lithium-Ion Battery Storage',
-      'Real-time Smartphone Generation Monitoring App',
-      'Turnkey Installation with GI Structure & Earthing',
+      'Primary: 100 LPD to 5,000+ LPD Solar Water Heaters (Food-Grade SS 304/316 Inner Tanks)',
+      'High-Efficiency 3-Target Evacuated Tube Collectors (ETC) & Flat Plate Collectors (FPC)',
+      'Pressurized Systems Compatible with High-Pressure Hydro-Pneumatic Booster Pumps',
+      'High-Density Injected PUF Insulation & All-Weather Electric Backup Heating Element',
+      'Secondary: Turnkey Monocrystalline Solar Rooftop PV Plants with DISCOM Net-Metering',
+      'Turnkey Structural GI Mounting, Plumbing & Chemical Earthing Installation',
     ],
   },
   ups_page: {

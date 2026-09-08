@@ -40,7 +40,7 @@ function getCardColorClass(colorName?: string) {
 
 export default async function HomePage() {
   const settings = await getAllSiteSettings();
-  const { branding, home_page, announcement_bar, whatsapp_button } = settings;
+  const { branding, home_page, announcement_bar, whatsapp_button, media } = settings;
 
   const defaultCards: HeroShowcaseCard[] = [
     {
@@ -444,7 +444,7 @@ export default async function HomePage() {
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/cctv_commercial_security.jpg"
+                    src={media?.cctv_image || '/images/cctv_commercial_security.jpg'}
                     alt="CCTV Commercial Security Installation"
                     width={800}
                     height={500}
@@ -466,7 +466,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* VISUAL SOLUTION 2: SOLAR ROOFTOP PLANTS (LILAC BLOCK + REAL ROOFTOP PHOTO) */}
+        {/* VISUAL SOLUTION 2: SOLAR WATER HEATING (PRIMARY) & SOLAR POWER (LILAC BLOCK + REAL ROOFTOP PHOTO) */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="block-lilac rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14 transition-all duration-300">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -474,8 +474,8 @@ export default async function HomePage() {
               <div className="lg:col-span-6 order-2 lg:order-1 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/solar_rooftop_project.jpg"
-                    alt="Rooftop Solar Array on Luxury Building"
+                    src={media?.solar_image || '/images/solar_water_heater_rooftop.jpg'}
+                    alt="Solar Water Heating System and Rooftop Solar on Luxury Building"
                     width={800}
                     height={500}
                     className="object-cover w-full h-full transform hover:scale-102 transition-transform duration-500"
@@ -483,12 +483,12 @@ export default async function HomePage() {
                   {/* Visual Overlay Status */}
                   <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
                     <Sun size={13} className="text-[#ffe066]" />
-                    <span>BI-DIRECTIONAL NET-METERING ACTIVE</span>
+                    <span>65°C SOLAR WATER HEATING + NET-METER ACTIVE</span>
                   </div>
 
                   <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md text-black p-3 rounded-2xl text-xs shadow-md border border-black/5">
-                    <p className="text-[10px] text-black/60 font-mono uppercase">Direct DBT Subsidy</p>
-                    <p className="font-bold text-sm text-black">Up to ₹78,000 Govt. Assistance</p>
+                    <p className="text-[10px] text-black/60 font-mono uppercase font-bold text-amber-700">Primary Specialization</p>
+                    <p className="font-bold text-sm text-black">100 LPD to 5,000+ LPD Solar Water Heaters</p>
                   </div>
                 </div>
               </div>
@@ -496,31 +496,31 @@ export default async function HomePage() {
               {/* Right Column: Details */}
               <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
                 <span className="eyebrow-text inline-block text-black/80 font-mono">
-                  02 / CLEAN ENERGY INFRASTRUCTURE
+                  02 / SOLAR THERMAL &amp; ROOFTOP POWER
                 </span>
                 <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black">
-                  Turnkey Rooftop Solar Power Plants
+                  Solar Water Heating &amp; Clean Energy Systems
                 </h2>
                 <p className="text-base sm:text-lg font-light text-black/90 leading-relaxed">
-                  Slash building electricity costs by up to 90% with Tier-1 half-cut monocrystalline solar panels, hybrid storage inverters, and end-to-end DISCOM net-metering approvals.
+                  <strong>Primary Focus:</strong> Advanced Evacuated Tube (ETC) &amp; Flat Plate (FPC) Solar Water Heating Systems for 24/7 continuous pressurized hot water, alongside turnkey On-Grid &amp; Hybrid Solar Power plants with DISCOM net-metering.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                   <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
-                    <p className="font-bold text-xs text-black">25-Year Linear Power Warranty</p>
-                    <p className="text-[11px] text-black/70">Tier-1 high-efficiency PV half-cut modules.</p>
+                    <p className="font-bold text-xs text-black">Primary: Solar Water Heaters (ETC/FPC)</p>
+                    <p className="text-[11px] text-black/70">Food-grade SS 304/316 tanks with hydro-pneumatic pressure.</p>
                   </div>
                   <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
-                    <p className="font-bold text-xs text-black">Complete Discom Net-Metering</p>
-                    <p className="text-[11px] text-black/70">We handle all inspections, meter swaps &amp; approvals.</p>
+                    <p className="font-bold text-xs text-black">24/7 Hot Water &amp; 80% Geyser Savings</p>
+                    <p className="text-[11px] text-black/70">High-density PUF insulation retains 65°C heat all night.</p>
                   </div>
                   <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
-                    <p className="font-bold text-xs text-black">Smart Generation Monitoring</p>
-                    <p className="text-[11px] text-black/70">Real-time daily kWh production &amp; savings app.</p>
+                    <p className="font-bold text-xs text-black">Secondary: Solar Rooftop PV Plants</p>
+                    <p className="text-[11px] text-black/70">Tier-1 half-cut mono panels slashing 85%+ EB bills.</p>
                   </div>
                   <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
-                    <p className="font-bold text-xs text-black">Turnkey Structural Engineering</p>
-                    <p className="text-[11px] text-black/70">GI wind-resistant mounting &amp; chemical earthing.</p>
+                    <p className="font-bold text-xs text-black">Discom Net-Metering &amp; Subsidies</p>
+                    <p className="text-[11px] text-black/70">Up to ₹78,000 subsidy assistance with full EB liaison.</p>
                   </div>
                 </div>
 
@@ -535,7 +535,7 @@ export default async function HomePage() {
                     href="/request-quote?service=Solar"
                     className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#f7f7f5] px-6 py-3.5 rounded-full text-xs font-semibold border border-black/15 transition-all"
                   >
-                    Calculate Solar ROI
+                    Get Solar Estimate
                   </Link>
                 </div>
               </div>
@@ -598,7 +598,7 @@ export default async function HomePage() {
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/ups_power_datacenter.jpg"
+                    src={media?.ups_image || '/images/ups_power_datacenter.jpg'}
                     alt="Enterprise UPS Power Backup Room"
                     width={800}
                     height={500}
@@ -628,7 +628,7 @@ export default async function HomePage() {
               <div className="lg:col-span-6 order-2 lg:order-1 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/smart_home_automation.jpg"
+                    src={media?.automation_image || '/images/smart_home_automation.jpg'}
                     alt="Smart Home & Sump Automation"
                     width={800}
                     height={500}
@@ -739,7 +739,7 @@ export default async function HomePage() {
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[4/3]">
                   <Image
-                    src="/images/engineer_site_inspection.jpg"
+                    src={media?.engineer_image || '/images/engineer_site_inspection.jpg'}
                     alt="ProHomeX Certified Engineering Team on Site"
                     width={800}
                     height={600}
@@ -865,7 +865,7 @@ export default async function HomePage() {
             <div className="relative rounded-[24px] overflow-hidden border border-neutral-800 bg-neutral-900 shadow-2xl mb-10 group">
               <div className="relative aspect-[16/9] w-full">
                 <Image
-                  src="/images/unified_building_infrastructure.jpg"
+                  src={media?.unified_frame_image || '/images/unified_building_infrastructure.jpg'}
                   alt="All-in-One Building Infrastructure Blueprint & Cross-Section Visual"
                   fill
                   priority

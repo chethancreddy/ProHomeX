@@ -1,14 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Zap, Sun, Shield, Award, ArrowRight, ArrowUpRight, Check, TrendingDown, FileText, CheckCircle2 } from 'lucide-react';
-import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+import { Zap, Sun, Shield, Award, ArrowRight, ArrowUpRight, Check, TrendingDown, FileText, CheckCircle2, Droplets, ThermometerSun } from 'lucide-react';
+import { getSectionSettings, ServicePageSettings, BrandingSettings, SiteMediaSettings } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
 export default async function SolarPage() {
-  const [solar, branding] = await Promise.all([
+  const [solar, branding, media] = await Promise.all([
     getSectionSettings<ServicePageSettings>('solar_page'),
     getSectionSettings<BrandingSettings>('branding'),
+    getSectionSettings<SiteMediaSettings>('media'),
   ]);
 
   return (
@@ -16,27 +17,33 @@ export default async function SolarPage() {
       <PublicNav branding={branding} />
 
       <main className="space-y-16 md:space-y-24 py-10 md:py-16">
-        {/* Hero: Signature Lilac Block with Real Rooftop Project Photo */}
+        {/* Hero: Signature Lilac Block with Solar Water Heater & Rooftop Project Photo */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="block-lilac rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-6 space-y-6">
                 <span className="eyebrow-text inline-block text-black/80 font-mono">
-                  SOLUTIONS / CLEAN ENERGY &amp; SOLAR
+                  SOLUTIONS / SOLAR WATER HEATERS &amp; SOLAR POWER
                 </span>
                 <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black">
-                  {solar.hero_title || 'Turnkey Solar Rooftop Power Plants'}
+                  {solar.hero_title || 'Solar Water Heaters & Rooftop Solar Power'}
                 </h1>
                 <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed">
                   {solar.hero_subtitle ||
-                    'Harness clean solar energy with Tier-1 bifacial panels, hybrid inverters, and seamless government net-metering approvals for villas, commercial towers and industries.'}
+                    'High-performance Solar Water Heating Systems (ETC / FPC Pressurized & Non-Pressurized) as our primary specialty, alongside turnkey On-Grid & Hybrid Solar Power Plants for villas, apartments, commercial buildings and hotels.'}
                 </p>
 
-                {solar.subsidy_text && (
-                  <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono">
-                    <strong className="text-white font-bold">{solar.subsidy_text}</strong>
-                  </div>
-                )}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <span className="inline-flex items-center gap-1.5 bg-black text-white px-3.5 py-1.5 rounded-full text-xs font-mono">
+                    <ThermometerSun size={13} className="text-amber-300" />
+                    <strong>Primary: 100L to 5000+L Solar Water Heaters</strong>
+                  </span>
+                  {solar.subsidy_text && (
+                    <span className="inline-block bg-white text-black border border-black/20 px-3.5 py-1.5 rounded-full text-xs font-mono">
+                      <strong>Secondary: Solar PV &amp; Net-Metering</strong>
+                    </span>
+                  )}
+                </div>
 
                 <div className="flex flex-wrap items-center gap-3.5 pt-2">
                   <Link
@@ -54,12 +61,12 @@ export default async function SolarPage() {
                 </div>
               </div>
 
-              {/* Real Solar Rooftop Image Visual */}
+              {/* Solar Water Heater + Solar Rooftop Image Visual */}
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/solar_rooftop_project.jpg"
-                    alt="Rooftop Solar Installation on Commercial & Residential Real Estate"
+                    src={media?.solar_image || '/images/solar_water_heater_rooftop.jpg'}
+                    alt="Solar Water Heating System and Rooftop Solar Installation"
                     width={800}
                     height={500}
                     className="object-cover w-full h-full"
@@ -67,12 +74,12 @@ export default async function SolarPage() {
                   />
                   <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
                     <Sun size={13} className="text-[#ffe066]" />
-                    <span>NET-METERING ACTIVE · 28.4 kWh/DAY</span>
+                    <span>65°C CONTINUOUS HOT WATER · NET-METER ACTIVE</span>
                   </div>
 
                   <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md text-black p-3 rounded-2xl text-xs shadow-md border border-black/5">
-                    <p className="text-[10px] text-black/60 font-mono uppercase">Direct DBT Subsidy</p>
-                    <p className="font-bold text-sm text-black">Up to ₹78,000 Govt. Assistance</p>
+                    <p className="text-[10px] text-black/60 font-mono uppercase font-bold text-amber-700">Primary Specialization</p>
+                    <p className="font-bold text-sm text-black">Food-Grade SS 304/316 Tanks (Pressurized Safe)</p>
                   </div>
                 </div>
               </div>
@@ -80,54 +87,54 @@ export default async function SolarPage() {
           </div>
         </section>
 
-        {/* Real Estate Financial Benefits */}
+        {/* PRIMARY FOCUS: SOLAR WATER HEATING SYSTEMS */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="eyebrow-text text-black/60 font-mono block mb-2">FINANCIAL RETURN</span>
+            <span className="eyebrow-text text-amber-700 font-mono font-bold block mb-2">PRIMARY SPECIALIZATION</span>
             <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">
-              Why Real Estate &amp; Building Owners Invest in Solar
+              Commercial &amp; Residential Solar Water Heaters
             </h2>
             <p className="text-black/70 text-sm mt-1">
-              Guaranteed ROI with rapid 3-4 year payback and 25 years of free electricity.
+              Zero electricity geyser bills. Scalable from 100 LPD luxury villas to 10,000+ LPD commercial apartments, hospitals, and hotels.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3">
-              <span className="font-mono text-xs text-black/50 uppercase block">01 / BILL REDUCTION</span>
-              <p className="text-3xl font-bold font-mono text-black">-85% to -90%</p>
-              <h3 className="text-base font-bold text-black">Immediate Electricity Savings</h3>
+              <span className="font-mono text-xs text-black/50 uppercase block">01 / EVACUATED TUBE (ETC)</span>
+              <p className="text-2xl font-bold text-black">ETC Non-Pressurized</p>
+              <h3 className="text-sm font-bold text-black">3-Target Vacuum Glass Tubes</h3>
               <p className="text-xs text-black/70 leading-relaxed">
-                Offset high commercial slab tariffs with direct daytime self-consumption and net-meter credit banking.
+                High-absorption borosilicate tubes that heat water even on cloudy days. Ideal for overhead gravity water tank setups in villas and independent houses.
+              </p>
+            </div>
+
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3 border-amber-300 shadow-sm bg-amber-50/30">
+              <span className="font-mono text-xs text-amber-800 uppercase block font-bold">02 / PRESSURIZED SYSTEM</span>
+              <p className="text-2xl font-bold text-black">High-Pressure Hydro-Pneumatic</p>
+              <h3 className="text-sm font-bold text-black">Reinforced SS 316 Tank</h3>
+              <p className="text-xs text-black/70 leading-relaxed">
+                Engineered for luxury homes, high-pressure shower panels, and commercial booster pump lines. Withstands up to 6 bar operating pressure.
               </p>
             </div>
 
             <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3">
-              <span className="font-mono text-xs text-black/50 uppercase block">02 / PROPERTY VALUATION</span>
-              <p className="text-3xl font-bold font-mono text-[#1ea64a]">+12% Asset Value</p>
-              <h3 className="text-base font-bold text-black">Green Building Certification</h3>
+              <span className="font-mono text-xs text-black/50 uppercase block">03 / FLAT PLATE (FPC)</span>
+              <p className="text-2xl font-bold text-black">Copper Flat Plate (FPC)</p>
+              <h3 className="text-sm font-bold text-black">Heavy-Duty Commercial Grade</h3>
               <p className="text-xs text-black/70 leading-relaxed">
-                Enhance commercial rental yield and residential market value with certified ESG sustainability ratings.
-              </p>
-            </div>
-
-            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3">
-              <span className="font-mono text-xs text-black/50 uppercase block">03 / ACCELERATED DEPRECIATION</span>
-              <p className="text-3xl font-bold font-mono text-blue-600">40% Tax Benefit</p>
-              <h3 className="text-base font-bold text-black">Commercial Tax Write-off</h3>
-              <p className="text-xs text-black/70 leading-relaxed">
-                Commercial and industrial property owners can claim 40% accelerated depreciation in Year 1.
+                Ultrasonically welded copper collector fins and toughened textured glass. Highest mechanical durability for apartment blocks, hotels, and industrial laundries.
               </p>
             </div>
           </div>
         </section>
 
-        {/* System Types */}
+        {/* SECONDARY FOCUS: SOLAR ROOFTOP POWER PLANTS */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
-            <span className="eyebrow-text text-black/60 font-mono block mb-2">PLANT CONFIGURATIONS</span>
-            <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">Solar Power Architectures</h2>
-            <p className="text-black/70 text-sm mt-1">Engineered to match grid availability, backup needs, and tariff benefits.</p>
+            <span className="eyebrow-text text-black/60 font-mono block mb-2">SECONDARY SERVICE</span>
+            <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">Turnkey Solar Rooftop Power Plants</h2>
+            <p className="text-black/70 text-sm mt-1">Bi-directional net-metering solar PV plants slashing up to 90% electricity bills.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

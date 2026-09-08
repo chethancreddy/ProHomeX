@@ -1,14 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Battery, Zap, ArrowRight, ArrowUpRight, Check, ShieldCheck, CheckCircle2, Activity, Server } from 'lucide-react';
-import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+import { getSectionSettings, ServicePageSettings, BrandingSettings, SiteMediaSettings } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
 export default async function UPSPage() {
-  const [ups, branding] = await Promise.all([
+  const [ups, branding, media] = await Promise.all([
     getSectionSettings<ServicePageSettings>('ups_page'),
     getSectionSettings<BrandingSettings>('branding'),
+    getSectionSettings<SiteMediaSettings>('media'),
   ]);
 
   return (
@@ -52,7 +53,7 @@ export default async function UPSPage() {
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/ups_power_datacenter.jpg"
+                    src={media?.ups_image || '/images/ups_power_datacenter.jpg'}
                     alt="Enterprise UPS Power Backup Facility"
                     width={800}
                     height={500}

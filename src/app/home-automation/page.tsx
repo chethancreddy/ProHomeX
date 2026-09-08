@@ -18,14 +18,15 @@ import {
   ArrowUpRight,
   Check
 } from 'lucide-react';
-import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+import { getSectionSettings, ServicePageSettings, BrandingSettings, SiteMediaSettings } from '@/lib/cms';
 
 export const dynamic = 'force-dynamic';
 
 export default async function HomeAutomationPage() {
-  const [automation, branding] = await Promise.all([
+  const [automation, branding, media] = await Promise.all([
     getSectionSettings<ServicePageSettings>('automation_page'),
     getSectionSettings<BrandingSettings>('branding'),
+    getSectionSettings<SiteMediaSettings>('media'),
   ]);
 
   return (
@@ -76,7 +77,7 @@ export default async function HomeAutomationPage() {
               <div className="lg:col-span-6 relative">
                 <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
                   <Image
-                    src="/images/smart_home_automation.jpg"
+                    src={media?.automation_image || '/images/smart_home_automation.jpg'}
                     alt="Luxury Smart Home & Touch Automation"
                     width={800}
                     height={500}

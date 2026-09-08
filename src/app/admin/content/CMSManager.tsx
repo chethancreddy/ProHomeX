@@ -5,7 +5,8 @@ import {
   Globe, MessageCircle, Building2, Megaphone, Home,
   Shield, Sun, Battery, Info, PhoneCall, Save, CheckCircle,
   AlertCircle, Sparkles, ExternalLink, RefreshCw, Cpu,
-  FileText, ListChecks, Plus, Trash2, Check
+  FileText, ListChecks, Plus, Trash2, Check, Image as ImageIcon,
+  Upload, Eye
 } from 'lucide-react';
 import { AllSiteSettings, HeroShowcaseCard, DEFAULT_SITE_SETTINGS } from '@/lib/cms';
 import { saveSiteSettings } from './actions';
@@ -18,12 +19,16 @@ export default function CMSManager({ initialSettings }: Props) {
   const [settings, setSettings] = useState<AllSiteSettings>(() => ({
     ...DEFAULT_SITE_SETTINGS,
     ...initialSettings,
+    media: {
+      ...DEFAULT_SITE_SETTINGS.media,
+      ...(initialSettings?.media || {}),
+    },
     quote_page: {
       ...DEFAULT_SITE_SETTINGS.quote_page,
       ...(initialSettings?.quote_page || {}),
     },
   }));
-  const [activeTab, setActiveTab] = useState<string>('whatsapp');
+  const [activeTab, setActiveTab] = useState<string>('media');
   const [isPending, startTransition] = useTransition();
   const [toastMessage, setToastMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -46,13 +51,14 @@ export default function CMSManager({ initialSettings }: Props) {
   }
 
   const tabs = [
+    { id: 'media', label: 'Website Images & Media', icon: ImageIcon, badge: 'Visuals' },
     { id: 'whatsapp', label: 'Floating WhatsApp', icon: MessageCircle, badge: settings.whatsapp_button.enabled ? 'Active' : 'Off' },
     { id: 'branding', label: 'Company & Contact', icon: Building2 },
     { id: 'announcement', label: 'Announcement Bar', icon: Megaphone, badge: settings.announcement_bar.enabled ? 'Live' : 'Off' },
     { id: 'home', label: 'Home Page', icon: Home },
     { id: 'quote', label: 'Quote Page & Form', icon: FileText },
     { id: 'cctv', label: 'CCTV Page', icon: Shield },
-    { id: 'solar', label: 'Solar Page', icon: Sun },
+    { id: 'solar', label: 'Solar Page (Water & Power)', icon: Sun },
     { id: 'ups', label: 'UPS Page', icon: Battery },
     { id: 'automation', label: 'Automation Page', icon: Cpu },
     { id: 'about', label: 'About Us', icon: Info },
@@ -139,6 +145,439 @@ export default function CMSManager({ initialSettings }: Props) {
 
         {/* Right Content Editor Card */}
         <div className="md:col-span-3 bg-white rounded-2xl border border-gray-200 p-6 shadow-sm space-y-6">
+          {/* TAB 0: Website Images & Media Manager */}
+          {activeTab === 'media' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-100 pb-4 gap-3">
+                <div>
+                  <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
+                    <ImageIcon size={18} className="text-indigo-600" /> Website Visuals &amp; Media Studio
+                  </h2>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Customize photography across all customer-facing landing sections and solution pages. Paste any image URL or select from high-resolution built-in presets.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => handleSave('media')}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl hover:bg-indigo-700 disabled:opacity-50 shadow-sm whitespace-nowrap"
+                >
+                  <Save size={14} /> {isPending ? 'Saving...' : 'Save All Images'}
+                </button>
+              </div>
+
+              {/* Media Cards Grid */}
+              <div className="space-y-6">
+                {/* 1. Solar Systems (Water Heaters & Solar Power) */}
+                <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        1. Solar Systems Visual (Primary: Solar Water Heaters + Solar Power)
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-semibold">
+                      Landing Page &amp; /solar
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div className="md:col-span-4">
+                      <div className="relative rounded-xl overflow-hidden border border-gray-300 aspect-[16/10] bg-gray-100 shadow-xs group">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={settings.media?.solar_image || '/images/solar_water_heater_rooftop.jpg'}
+                          alt="Solar Systems Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => { e.currentTarget.src = '/images/solar_water_heater_rooftop.jpg'; }}
+                        />
+                        <div className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[9px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-8 space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">Image URL or Local Path</label>
+                        <input
+                          type="text"
+                          value={settings.media?.solar_image || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            media: { ...settings.media, solar_image: e.target.value }
+                          })}
+                          placeholder="/images/solar_water_heater_rooftop.jpg"
+                          className="w-full text-xs font-mono border border-gray-300 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">Quick Presets:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, solar_image: '/images/solar_water_heater_rooftop.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-amber-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-amber-700 transition-colors"
+                          >
+                            ☀️ Solar Water Heater (ETC) &amp; PV [Recommended]
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, solar_image: '/images/solar_rooftop_project.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-amber-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-amber-700 transition-colors"
+                          >
+                            ⚡ Pure Solar Rooftop PV Array
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. CCTV Surveillance Systems */}
+                <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-lime-500"></span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        2. CCTV Surveillance Visual (Commercial Facade &amp; 4K ColorVu)
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-lime-800 bg-lime-50 border border-lime-200 px-2 py-0.5 rounded-full font-semibold">
+                      Landing Page &amp; /cctv
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div className="md:col-span-4">
+                      <div className="relative rounded-xl overflow-hidden border border-gray-300 aspect-[16/10] bg-gray-100 shadow-xs">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={settings.media?.cctv_image || '/images/cctv_commercial_security.jpg'}
+                          alt="CCTV Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => { e.currentTarget.src = '/images/cctv_commercial_security.jpg'; }}
+                        />
+                        <div className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[9px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-8 space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">Image URL or Local Path</label>
+                        <input
+                          type="text"
+                          value={settings.media?.cctv_image || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            media: { ...settings.media, cctv_image: e.target.value }
+                          })}
+                          placeholder="/images/cctv_commercial_security.jpg"
+                          className="w-full text-xs font-mono border border-gray-300 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">Quick Presets:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, cctv_image: '/images/cctv_commercial_security.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-lime-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-lime-700 transition-colors"
+                          >
+                            📹 Modern Architectural 4K CCTV [Default]
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Online UPS & Battery Power Storage */}
+                <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        3. Online UPS &amp; Datacenter Power Visual (0ms Switchover)
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-orange-800 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full font-semibold">
+                      Landing Page &amp; /ups
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div className="md:col-span-4">
+                      <div className="relative rounded-xl overflow-hidden border border-gray-300 aspect-[16/10] bg-gray-100 shadow-xs">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={settings.media?.ups_image || '/images/ups_power_datacenter.jpg'}
+                          alt="UPS Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => { e.currentTarget.src = '/images/ups_power_datacenter.jpg'; }}
+                        />
+                        <div className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[9px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-8 space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">Image URL or Local Path</label>
+                        <input
+                          type="text"
+                          value={settings.media?.ups_image || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            media: { ...settings.media, ups_image: e.target.value }
+                          })}
+                          placeholder="/images/ups_power_datacenter.jpg"
+                          className="w-full text-xs font-mono border border-gray-300 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">Quick Presets:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, ups_image: '/images/ups_power_datacenter.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-orange-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-orange-700 transition-colors"
+                          >
+                            ⚡ Enterprise UPS Battery Rack Room [Default]
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Home & Sump Automation */}
+                <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        4. Smart Home &amp; Sump Automation Visual
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-cyan-800 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-full font-semibold">
+                      Landing Page &amp; /home-automation
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div className="md:col-span-4">
+                      <div className="relative rounded-xl overflow-hidden border border-gray-300 aspect-[16/10] bg-gray-100 shadow-xs">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={settings.media?.automation_image || '/images/smart_home_automation.jpg'}
+                          alt="Smart Automation Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => { e.currentTarget.src = '/images/smart_home_automation.jpg'; }}
+                        />
+                        <div className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[9px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-8 space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">Image URL or Local Path</label>
+                        <input
+                          type="text"
+                          value={settings.media?.automation_image || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            media: { ...settings.media, automation_image: e.target.value }
+                          })}
+                          placeholder="/images/smart_home_automation.jpg"
+                          className="w-full text-xs font-mono border border-gray-300 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">Quick Presets:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, automation_image: '/images/smart_home_automation.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-cyan-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-cyan-700 transition-colors"
+                          >
+                            💡 Luxury Glass Touch &amp; Smart Living [Default]
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 5. In-House Field Engineers & Inspection */}
+                <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        5. Certified Field Engineering Team On-Site Photo
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full font-semibold">
+                      Landing Page Engineering Process
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div className="md:col-span-4">
+                      <div className="relative rounded-xl overflow-hidden border border-gray-300 aspect-[16/10] bg-gray-100 shadow-xs">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={settings.media?.engineer_image || '/images/engineer_site_inspection.jpg'}
+                          alt="Engineers Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => { e.currentTarget.src = '/images/engineer_site_inspection.jpg'; }}
+                        />
+                        <div className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[9px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-8 space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">Image URL or Local Path</label>
+                        <input
+                          type="text"
+                          value={settings.media?.engineer_image || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            media: { ...settings.media, engineer_image: e.target.value }
+                          })}
+                          placeholder="/images/engineer_site_inspection.jpg"
+                          className="w-full text-xs font-mono border border-gray-300 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">Quick Presets:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, engineer_image: '/images/engineer_site_inspection.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-slate-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-slate-900 transition-colors"
+                          >
+                            👷 Certified Field Engineers On-Site [Default]
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 6. All-In-One Unified Building Infrastructure Master Frame */}
+                <div className="bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                        6. All-in-One Master Infrastructure Frame (Complete Cross-Section)
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-indigo-800 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full font-semibold">
+                      Landing Page Master Command Frame
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <div className="md:col-span-4">
+                      <div className="relative rounded-xl overflow-hidden border border-gray-300 aspect-[16/10] bg-gray-100 shadow-xs">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={settings.media?.unified_frame_image || '/images/unified_building_infrastructure.jpg'}
+                          alt="Unified Frame Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e: any) => { e.currentTarget.src = '/images/unified_building_infrastructure.jpg'; }}
+                        />
+                        <div className="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[9px] font-mono px-2 py-0.5 rounded backdrop-blur-xs">
+                          Preview
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-8 space-y-2.5">
+                      <div>
+                        <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">Image URL or Local Path</label>
+                        <input
+                          type="text"
+                          value={settings.media?.unified_frame_image || ''}
+                          onChange={e => setSettings({
+                            ...settings,
+                            media: { ...settings.media, unified_frame_image: e.target.value }
+                          })}
+                          placeholder="/images/unified_building_infrastructure.jpg"
+                          className="w-full text-xs font-mono border border-gray-300 rounded-xl px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase mb-1">Quick Presets:</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({
+                              ...settings,
+                              media: { ...settings.media, unified_frame_image: '/images/unified_building_infrastructure.jpg' }
+                            })}
+                            className="text-[10px] font-semibold bg-white border border-gray-300 hover:border-indigo-500 px-2.5 py-1 rounded-lg text-gray-700 hover:text-indigo-700 transition-colors"
+                          >
+                            🏢 Complete Building Cross-Section Master Frame [Default]
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Save Button */}
+              <div className="flex justify-end pt-4 border-t border-gray-100">
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => handleSave('media')}
+                  className="inline-flex items-center gap-1.5 px-6 py-2.5 bg-indigo-600 text-white text-xs font-bold rounded-xl hover:bg-indigo-700 disabled:opacity-50 shadow-sm transition-all"
+                >
+                  <Save size={14} /> {isPending ? 'Saving Visuals...' : 'Save All Website Images'}
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* TAB 1: Floating WhatsApp Button */}
           {activeTab === 'whatsapp' && (
             <div className="space-y-5">
