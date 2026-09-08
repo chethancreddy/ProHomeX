@@ -1,6 +1,9 @@
 import Link from 'next/link';
-import { Battery, Zap, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import Image from 'next/image';
+import { Battery, Zap, ArrowRight, ArrowUpRight, Check, ShieldCheck, CheckCircle2, Activity, Server } from 'lucide-react';
 import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+
+export const dynamic = 'force-dynamic';
 
 export default async function UPSPage() {
   const [ups, branding] = await Promise.all([
@@ -13,35 +16,110 @@ export default async function UPSPage() {
       <PublicNav branding={branding} />
 
       <main className="space-y-16 md:space-y-24 py-10 md:py-16">
-        {/* Hero: Signature Coral Block */}
+        {/* Hero: Signature Coral Block with Real Datacenter / UPS Photo */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-coral rounded-[24px] p-8 sm:p-12 md:p-16">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                SOLUTIONS / POWER INFRASTRUCTURE &amp; UPS
-              </span>
-              <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black mb-6">
-                {ups.hero_title || 'Online UPS & Pure Sine Wave Backup'}
-              </h1>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-8">
-                {ups.hero_subtitle || 'Zero-transfer-time double conversion power backup systems for critical servers, medical gear, and entire facilities.'}
-              </p>
+          <div className="block-coral rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  SOLUTIONS / POWER INFRASTRUCTURE &amp; UPS
+                </span>
+                <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black">
+                  {ups.hero_title || 'Online UPS & Pure Sine Wave Backup'}
+                </h1>
+                <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed">
+                  {ups.hero_subtitle ||
+                    'Zero-transfer-time double conversion power backup systems for critical servers, medical gear, elevators, and luxury real estate facilities.'}
+                </p>
 
-              <div className="flex flex-wrap items-center gap-3.5">
-                <Link
-                  href="/request-quote?service=UPS"
-                  className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-sm"
-                >
-                  Request UPS Quote <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-sm"
-                >
-                  Consult Power Engineer ({branding.phone || '+91 98765 43210'})
-                </Link>
+                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                  <Link
+                    href="/request-quote?service=UPS"
+                    className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-xs uppercase tracking-wider shadow-sm"
+                  >
+                    Request UPS Quote <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-xs uppercase tracking-wider"
+                  >
+                    Consult Power Engineer
+                  </Link>
+                </div>
+              </div>
+
+              {/* Real UPS Image Visual */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/ups_power_datacenter.jpg"
+                    alt="Enterprise UPS Power Backup Facility"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <Zap size={13} className="text-[#51cf66]" />
+                    <span>0 ms PURE SINE WAVE ONLINE</span>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md text-black px-4 py-2 rounded-2xl text-xs font-semibold shadow-md border border-black/5 flex items-center gap-2">
+                    <CheckCircle2 size={16} className="text-[#1ea64a]" />
+                    <span>Zero Grid Disruption Guarantee</span>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Commercial & Mission-Critical Sectors */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="eyebrow-text text-black/60 font-mono block mb-2">SECTOR RELIABILITY</span>
+            <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">
+              Where Zero Downtime is Non-Negotiable
+            </h2>
+            <p className="text-black/70 text-sm mt-1">
+              Industrial and enterprise grade backup protecting mission-critical equipment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: 'Data Centers & IT Suites',
+                desc: 'Uninterrupted pure sine-wave feeding server racks, firewalls, and fiber switches with zero transfer latency.',
+                badge: '100% IT Uptime',
+              },
+              {
+                title: 'Medical & Diagnostic Labs',
+                desc: 'Shields MRI machines, ventilators, analyzers, and dental chairs from micro-surges and power sags.',
+                badge: 'Equipment Safe',
+              },
+              {
+                title: 'Commercial Elevators & Lifts',
+                desc: 'High inrush current 3-phase ARD (Automatic Rescue Device) inverter batteries for apartment lifts.',
+                badge: 'Safety First',
+              },
+              {
+                title: 'Luxury Residences',
+                desc: 'Whole-house silent backup running air conditioning, refrigerators, home theatre, and automation flawlessly.',
+                badge: 'Silent Comfort',
+              },
+            ].map((sec) => (
+              <div
+                key={sec.title}
+                className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[22px] p-6 space-y-3 hover:border-black transition-all"
+              >
+                <span className="text-[10px] font-mono font-bold bg-white text-black px-2.5 py-1 rounded-md border border-[#e6e6e6] inline-block">
+                  {sec.badge}
+                </span>
+                <h3 className="text-base font-bold text-black">{sec.title}</h3>
+                <p className="text-xs text-black/70 leading-relaxed">{sec.desc}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -96,23 +174,23 @@ export default async function UPSPage() {
 
         {/* Closing CTA */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-coral rounded-[24px] p-10 sm:p-16 text-center">
+          <div className="block-coral rounded-[28px] md:rounded-[36px] p-10 sm:p-16 text-center">
             <div className="max-w-2xl mx-auto">
-              <span className="eyebrow-text text-black/80 font-mono block mb-2">ZERO DOWNTIME GUARANTEED</span>
-              <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">Ensure Uninterrupted Power For Your Site</h2>
+              <span className="eyebrow-text text-black/80 font-mono block mb-2">LOAD SURVEY &amp; SIZING</span>
+              <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">Request a Complimentary Power Audit</h2>
               <p className="text-sm font-light text-black/80 mb-8">
-                {ups.warranty_text || '3-Year Direct Replacement Guarantee on Batteries & 24/7 Field Support.'}
+                {ups.warranty_text || 'Backed by 3-Year Battery Replacement Guarantee & Comprehensive On-Site Support.'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3.5">
                 <Link
                   href="/request-quote?service=UPS"
-                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-sm transition-all active:scale-98"
+                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition-all active:scale-98 shadow-sm"
                 >
-                  Request Load Sizing Quote
+                  Request Power Audit
                 </Link>
                 <Link
                   href="/contact"
-                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-sm transition-all active:scale-98"
+                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-xs uppercase tracking-wider transition-all active:scale-98"
                 >
                   Contact Power Specialist
                 </Link>
@@ -176,4 +254,3 @@ function PublicFooter({ branding }: { branding: any }) {
     </footer>
   );
 }
-

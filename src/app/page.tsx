@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Shield, Zap, Battery, Phone, ArrowRight, ArrowUpRight,
   CheckCircle2, Sparkles, Cpu, Lock, Sun, RefreshCw, Layers,
-  Droplets, Lightbulb
+  Droplets, Lightbulb, Building2, Home as HomeIcon, Factory,
+  Check, Award, Clock, Wrench, ShieldCheck, FileCheck2
 } from 'lucide-react';
 import { getAllSiteSettings, HeroShowcaseCard } from '@/lib/cms';
 import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton';
@@ -135,7 +137,7 @@ export default async function HomePage() {
                 </h1>
 
                 <p className="text-lg sm:text-xl text-black/85 font-light leading-relaxed max-w-xl">
-                  {home_page.hero_subtitle || 'End-to-end engineering infrastructure for residential, enterprise, and industrial sites.'}
+                  {home_page.hero_subtitle || 'End-to-end engineering infrastructure for residential villas, enterprise campuses, commercial buildings and industrial facilities.'}
                 </p>
 
                 <div className="pt-2 flex flex-wrap items-center gap-3.5">
@@ -302,197 +304,534 @@ export default async function HomePage() {
         {/* Marquee Trust Strip */}
         <MarqueeStrip />
 
-        {/* Story Color-Block Section 1: CCTV (Lime Block) */}
+        {/* REAL ESTATE & COMMERCIAL SECTORS WE SERVE */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lime rounded-[24px] p-8 sm:p-12 md:p-16 transition-all duration-300">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                01 / SURVEILLANCE &amp; INTELLIGENCE
-              </span>
-              <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black mb-6">
-                AI-Powered CCTV Surveillance Systems
-              </h2>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-8">
-                High-definition IP and ColorVu camera systems engineered for clarity 24/7. Continuous remote monitoring, tamper detection, and intelligent perimeter analytics.
-              </p>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="eyebrow-text inline-block mb-3 text-black/60 font-mono">
+              TARGETED INFRASTRUCTURE SOLUTIONS
+            </span>
+            <h2 className="headline-text text-3xl sm:text-4xl font-semibold text-black tracking-tight mb-4">
+              Engineered for Real-Estate, Commercial &amp; Enterprise Facilities
+            </h2>
+            <p className="text-base sm:text-lg font-light text-black/75">
+              Turnkey security, solar generation, and power resilience tailored specifically to modern property types.
+            </p>
+          </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">4K Ultra HD &amp; Night Vision</p>
-                  <p className="text-xs text-black/70 mt-1">Full spectrum ColorVu sensor arrays</p>
-                </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Mobile Live-View</p>
-                  <p className="text-xs text-black/70 mt-1">iOS and Android encrypted streaming</p>
-                </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Cloud &amp; NVR Storage</p>
-                  <p className="text-xs text-black/70 mt-1">30 to 90 days retention with failover</p>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Sector 1: Luxury Villas */}
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-4 hover:border-black transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#e6e6e6] flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-colors">
+                <HomeIcon size={22} />
               </div>
+              <div>
+                <h3 className="text-lg font-bold text-black mb-1">Luxury Villas &amp; Estates</h3>
+                <p className="text-xs text-black/70 leading-relaxed">
+                  Rooftop solar net-metering, discreet perimeter 4K surveillance, smart sump automation &amp; zero-switchover home UPS.
+                </p>
+              </div>
+              <ul className="text-xs text-black/80 space-y-2 pt-2 border-t border-[#e6e6e6]/60">
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> -85% Electricity Bills</li>
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> Aesthetic Hidden Cabling</li>
+              </ul>
+            </div>
 
-              <Link
-                href="/cctv"
-                className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-7 py-3.5 rounded-full text-sm font-medium transition-all active:scale-98"
-              >
-                Explore CCTV Packages <ArrowRight size={16} />
-              </Link>
+            {/* Sector 2: Tech Parks & Corporate Offices */}
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-4 hover:border-black transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#e6e6e6] flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-colors">
+                <Building2 size={22} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-black mb-1">Commercial Offices &amp; Tech Parks</h3>
+                <p className="text-xs text-black/70 leading-relaxed">
+                  Server rack online UPS, ANPR parking cameras, access control, and high-efficiency rooftop power generation.
+                </p>
+              </div>
+              <ul className="text-xs text-black/80 space-y-2 pt-2 border-t border-[#e6e6e6]/60">
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> 100% Server &amp; IT Uptime</li>
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> 24/7 NVR Encrypted Logs</li>
+              </ul>
+            </div>
+
+            {/* Sector 3: High-Rise Residential Townships */}
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-4 hover:border-black transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#e6e6e6] flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-colors">
+                <Layers size={22} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-black mb-1">Apartments &amp; Townships</h3>
+                <p className="text-xs text-black/70 leading-relaxed">
+                  Automated dual-tank sump motors, club-house solar plants, lift inverter backups &amp; common area IP security.
+                </p>
+              </div>
+              <ul className="text-xs text-black/80 space-y-2 pt-2 border-t border-[#e6e6e6]/60">
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> Dry-Run Motor Protection</li>
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> Centralized App Management</li>
+              </ul>
+            </div>
+
+            {/* Sector 4: Industrial Warehouses & Factories */}
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-4 hover:border-black transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#e6e6e6] flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-colors">
+                <Factory size={22} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-black mb-1">Industrial Plants &amp; Logistics</h3>
+                <p className="text-xs text-black/70 leading-relaxed">
+                  High-capacity 3-phase online UPS, commercial CAPEX/OPEX solar arrays, thermal cameras &amp; perimeter radar.
+                </p>
+              </div>
+              <ul className="text-xs text-black/80 space-y-2 pt-2 border-t border-[#e6e6e6]/60">
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> 100+ kVA Scalable Backups</li>
+                <li className="flex items-center gap-2"><Check size={13} className="text-[#1ea64a]" /> Tier-1 OEM Direct Support</li>
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* Story Color-Block Section 2: Solar (Lilac Block) */}
+        {/* VISUAL SOLUTION 1: CCTV SURVEILLANCE (LIME BLOCK + REAL SITE PHOTO) */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lilac rounded-[24px] p-8 sm:p-12 md:p-16 transition-all duration-300">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                02 / CLEAN ENERGY INFRASTRUCTURE
-              </span>
-              <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black mb-6">
-                Turnkey Solar Rooftop Power Plants
-              </h2>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-8">
-                Harness clean energy with Tier-1 bifacial panels, hybrid inverters, and seamless net-metering approvals. Save up to 90% on utility bills with direct MNRE government subsidy assistance.
-              </p>
+          <div className="block-lime rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Details */}
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  01 / COMMERCIAL SECURITY &amp; SURVEILLANCE
+                </span>
+                <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black">
+                  AI-Powered 4K CCTV Surveillance Systems
+                </h2>
+                <p className="text-base sm:text-lg font-light text-black/90 leading-relaxed">
+                  High-definition ColorVu &amp; IP camera installations engineered for 24/7 perimeter protection on luxury residences, commercial complexes, and retail showrooms.
+                </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">MNRE Subsidy Support</p>
-                  <p className="text-xs text-black/70 mt-1">Up to ₹78,000 direct DBT subsidy</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">4K ColorVu Full-Color Night Vision</p>
+                    <p className="text-[11px] text-black/70">Crystal-clear color imaging even in zero ambient lux.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">AI Human &amp; Vehicle Filtering</p>
+                    <p className="text-[11px] text-black/70">Zero false alarms from animals or moving foliage.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Mobile Live-View &amp; Cloud NVR</p>
+                    <p className="text-[11px] text-black/70">Encrypted multi-screen streaming on iOS &amp; Android.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">2-Year On-Site Comprehensive Warranty</p>
+                    <p className="text-[11px] text-black/70">Guaranteed same-day technician dispatch.</p>
+                  </div>
                 </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Net-Metering Approvals</p>
-                  <p className="text-xs text-black/70 mt-1">Complete EB liaisoning &amp; grid sync</p>
-                </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">25-Year Performance</p>
-                  <p className="text-xs text-black/70 mt-1">Tier-1 manufacturer warranty backed</p>
+
+                <div className="pt-2 flex items-center gap-3.5">
+                  <Link
+                    href="/cctv"
+                    className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all active:scale-98 shadow-sm"
+                  >
+                    Explore CCTV Packages <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/request-quote?service=CCTV"
+                    className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#f7f7f5] px-6 py-3.5 rounded-full text-xs font-semibold border border-black/15 transition-all"
+                  >
+                    Get Estimate
+                  </Link>
                 </div>
               </div>
 
-              <Link
-                href="/solar"
-                className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-7 py-3.5 rounded-full text-sm font-medium transition-all active:scale-98"
-              >
-                Explore Solar Solutions <ArrowRight size={16} />
-              </Link>
+              {/* Right Column: Large Photo Visual with Live Telemetry */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/cctv_commercial_security.jpg"
+                    alt="CCTV Commercial Security Installation"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full transform hover:scale-102 transition-transform duration-500"
+                  />
+                  {/* Visual Overlay Status */}
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse" />
+                    <span>4K AI STREAM · LIVE PERIMETER</span>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md text-black px-4 py-2 rounded-2xl text-xs font-semibold shadow-md border border-black/5 flex items-center gap-2">
+                    <ShieldCheck size={16} className="text-[#1ea64a]" />
+                    <span>Authorized Hikvision &amp; Dahua Partner</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Story Color-Block Section 3: UPS (Coral Block) */}
+        {/* VISUAL SOLUTION 2: SOLAR ROOFTOP PLANTS (LILAC BLOCK + REAL ROOFTOP PHOTO) */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-coral rounded-[24px] p-8 sm:p-12 md:p-16 transition-all duration-300">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                03 / UNINTERRUPTED POWER
-              </span>
-              <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black mb-6">
-                Online UPS &amp; Pure Sine Wave Backup
-              </h2>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-8">
-                Zero transfer time systems for workstations, server racks, medical gear, and whole-home resilience. Powered by heavy-duty tubular and lithium battery packs.
-              </p>
+          <div className="block-lilac rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Large Rooftop Photo Visual */}
+              <div className="lg:col-span-6 order-2 lg:order-1 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/solar_rooftop_project.jpg"
+                    alt="Rooftop Solar Array on Luxury Building"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full transform hover:scale-102 transition-transform duration-500"
+                  />
+                  {/* Visual Overlay Status */}
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <Sun size={13} className="text-[#ffe066]" />
+                    <span>BI-DIRECTIONAL NET-METERING ACTIVE</span>
+                  </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Zero Millisecond Transfer</p>
-                  <p className="text-xs text-black/70 mt-1">True online double-conversion tech</p>
-                </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Tubular &amp; LiFePO4</p>
-                  <p className="text-xs text-black/70 mt-1">Extended cycle life &amp; fast recharge</p>
-                </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Surge Protection</p>
-                  <p className="text-xs text-black/70 mt-1">Shields sensitive electronics</p>
+                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md text-black p-3 rounded-2xl text-xs shadow-md border border-black/5">
+                    <p className="text-[10px] text-black/60 font-mono uppercase">Direct DBT Subsidy</p>
+                    <p className="font-bold text-sm text-black">Up to ₹78,000 Govt. Assistance</p>
+                  </div>
                 </div>
               </div>
 
-              <Link
-                href="/ups"
-                className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-7 py-3.5 rounded-full text-sm font-medium transition-all active:scale-98"
-              >
-                Explore UPS Models <ArrowRight size={16} />
-              </Link>
+              {/* Right Column: Details */}
+              <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  02 / CLEAN ENERGY INFRASTRUCTURE
+                </span>
+                <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black">
+                  Turnkey Rooftop Solar Power Plants
+                </h2>
+                <p className="text-base sm:text-lg font-light text-black/90 leading-relaxed">
+                  Slash building electricity costs by up to 90% with Tier-1 half-cut monocrystalline solar panels, hybrid storage inverters, and end-to-end DISCOM net-metering approvals.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">25-Year Linear Power Warranty</p>
+                    <p className="text-[11px] text-black/70">Tier-1 high-efficiency PV half-cut modules.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Complete Discom Net-Metering</p>
+                    <p className="text-[11px] text-black/70">We handle all inspections, meter swaps &amp; approvals.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Smart Generation Monitoring</p>
+                    <p className="text-[11px] text-black/70">Real-time daily kWh production &amp; savings app.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Turnkey Structural Engineering</p>
+                    <p className="text-[11px] text-black/70">GI wind-resistant mounting &amp; chemical earthing.</p>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center gap-3.5">
+                  <Link
+                    href="/solar"
+                    className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all active:scale-98 shadow-sm"
+                  >
+                    Explore Solar Systems <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/request-quote?service=Solar"
+                    className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#f7f7f5] px-6 py-3.5 rounded-full text-xs font-semibold border border-black/15 transition-all"
+                  >
+                    Calculate Solar ROI
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Story Color-Block Section 4: Home Automation (Mint Block) */}
+        {/* VISUAL SOLUTION 3: ONLINE UPS & BATTERY POWER (CORAL BLOCK + REAL SERVER/UPS PHOTO) */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-mint rounded-[24px] p-8 sm:p-12 md:p-16 transition-all duration-300">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                04 / SMART CONTROLS
-              </span>
-              <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black mb-6">
-                Smart Sump &amp; Lighting Automation
-              </h2>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-8">
-                Autonomous water level management with dry-run protection, scheduled motor cycles, touch switches, and centralized sensor hubs for effortless living.
-              </p>
+          <div className="block-coral rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Details */}
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  03 / UNINTERRUPTED POWER RESILIENCE
+                </span>
+                <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black">
+                  Zero-Transfer Online UPS &amp; Pure Sine Wave Systems
+                </h2>
+                <p className="text-base sm:text-lg font-light text-black/90 leading-relaxed">
+                  Protect sensitive enterprise equipment, lifts, diagnostic centers, workstations, and high-end residential appliances with 0-millisecond double-conversion power resilience.
+                </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Auto Sump Controller</p>
-                  <p className="text-xs text-black/70 mt-1">Dry-run trip &amp; overhead tank sync</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">0 ms True Switchover</p>
+                    <p className="text-[11px] text-black/70">No reboot or data loss during blackout.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Tubular &amp; LiFePO4 Lithium</p>
+                    <p className="text-[11px] text-black/70">Heavy-duty deep cycle batteries with fast recharge.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">1 kVA to 100+ kVA Capacity</p>
+                    <p className="text-[11px] text-black/70">Custom engineering from residential to factories.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">3-Year Full Replacement Guarantee</p>
+                    <p className="text-[11px] text-black/70">On-site AMC health check &amp; battery care.</p>
+                  </div>
                 </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Glass Touch Switches</p>
-                  <p className="text-xs text-black/70 mt-1">Retrofit Wi-Fi &amp; Zigbee modules</p>
-                </div>
-                <div className="bg-white/70 backdrop-blur-xs rounded-[16px] p-4 border border-black/5">
-                  <p className="font-semibold text-sm text-black">Smart Schedule</p>
-                  <p className="text-xs text-black/70 mt-1">App control with voice integration</p>
+
+                <div className="pt-2 flex items-center gap-3.5">
+                  <Link
+                    href="/ups"
+                    className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all active:scale-98 shadow-sm"
+                  >
+                    Explore UPS Models <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/request-quote?service=UPS"
+                    className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#f7f7f5] px-6 py-3.5 rounded-full text-xs font-semibold border border-black/15 transition-all"
+                  >
+                    Request Load Survey
+                  </Link>
                 </div>
               </div>
 
-              <Link
-                href="/home-automation"
-                className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-7 py-3.5 rounded-full text-sm font-medium transition-all active:scale-98"
-              >
-                Explore Automation <ArrowRight size={16} />
-              </Link>
+              {/* Right Column: Large Photo Visual */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/ups_power_datacenter.jpg"
+                    alt="Enterprise UPS Power Backup Room"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full transform hover:scale-102 transition-transform duration-500"
+                  />
+                  {/* Visual Overlay Status */}
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <Zap size={13} className="text-[#51cf66]" />
+                    <span>0 ms PURE SINE WAVE ONLINE</span>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md text-black px-4 py-2 rounded-2xl text-xs font-semibold shadow-md border border-black/5 flex items-center gap-2">
+                    <CheckCircle2 size={16} className="text-[#1ea64a]" />
+                    <span>Zero Grid Disruption Guarantee</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Navy Story Block: Why ProHomeX */}
+        {/* VISUAL SOLUTION 4: HOME & SUMP AUTOMATION (MINT BLOCK + SMART INTERIOR PHOTO) */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-navy rounded-[24px] p-8 sm:p-12 md:p-16 text-white">
+          <div className="block-mint rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Large Smart Living Photo Visual */}
+              <div className="lg:col-span-6 order-2 lg:order-1 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-lg bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/smart_home_automation.jpg"
+                    alt="Smart Home & Sump Automation"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full transform hover:scale-102 transition-transform duration-500"
+                  />
+                  {/* Visual Overlay Status */}
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <Cpu size={13} className="text-[#20c997]" />
+                    <span>INTELLIGENT DUAL TANK SYNC</span>
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md text-black p-3 rounded-2xl text-xs shadow-md border border-black/5">
+                    <p className="text-[10px] text-black/60 font-mono uppercase">Motor Protection</p>
+                    <p className="font-bold text-sm text-black">Automatic Dry-Run Cutoff Safe</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Details */}
+              <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  04 / INTELLIGENT WATER &amp; LIGHTING CONTROLS
+                </span>
+                <h2 className="headline-text text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-black">
+                  Smart Sump Management &amp; Glass Touch Automation
+                </h2>
+                <p className="text-base sm:text-lg font-light text-black/90 leading-relaxed">
+                  Eliminate water overflow and motor burnouts forever. Autonomous dual-tank sump-to-overhead pumping controllers with dry-run trip protection, and modular touch switchboards.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Auto Sump &amp; Overhead Sync</p>
+                    <p className="text-[11px] text-black/70">Ultrasonic contactless depth monitoring.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Dry-Run Trip Safe</p>
+                    <p className="text-[11px] text-black/70">Instantly protects expensive submersible motors.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Capacitive Glass Touch Switches</p>
+                    <p className="text-[11px] text-black/70">Retrofit into existing standard concealed boxes.</p>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-xs rounded-[18px] p-4 border border-black/5 space-y-1">
+                    <p className="font-bold text-xs text-black">Voice &amp; Smartphone Control</p>
+                    <p className="text-[11px] text-black/70">Compatible with Alexa, Google Home &amp; Siri.</p>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center gap-3.5">
+                  <Link
+                    href="/home-automation"
+                    className="inline-flex items-center gap-2 bg-black text-white hover:bg-neutral-900 px-8 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all active:scale-98 shadow-sm"
+                  >
+                    Explore Automation <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/request-quote?service=Automation"
+                    className="inline-flex items-center gap-2 bg-white text-black hover:bg-[#f7f7f5] px-6 py-3.5 rounded-full text-xs font-semibold border border-black/15 transition-all"
+                  >
+                    Get Quote
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TURNKEY ENGINEERING EXECUTION PROCESS (4 STEPS + CERTIFIED ENGINEERS PHOTO) */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Left Column: Step-by-Step Execution */}
+              <div className="lg:col-span-6 space-y-8">
+                <div>
+                  <span className="eyebrow-text inline-block mb-3 text-black/60 font-mono">
+                    ENGINEERING METHODOLOGY
+                  </span>
+                  <h2 className="headline-text text-3xl sm:text-4xl font-semibold text-black tracking-tight">
+                    How We Execute Turnkey Installations
+                  </h2>
+                  <p className="text-sm sm:text-base font-light text-black/75 mt-2">
+                    Transparent, milestone-driven execution managed entirely by full-time in-house ProHomeX certified engineers.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {[
+                    { step: '01', title: 'Complimentary On-Site Survey', desc: 'Our senior engineer visits your facility to analyze roof shadow profiles, electrical switchgear, cable routing, and security zones.' },
+                    { step: '02', title: 'CAD Engineering & Itemized Estimate', desc: 'Receive an architectural schematic, single-line diagram (SLD), structural calculation, and guaranteed fixed pricing with zero hidden costs.' },
+                    { step: '03', title: 'Turnkey Installation & Discom Liaison', desc: 'Execution using concealed conduits, GI structural framing, chemical earthing, and full government/EB net-metering approvals.' },
+                    { step: '04', title: 'Commissioning & 24/7 SLA Support', desc: 'Final load testing, mobile app integration, on-site staff training, and handover of manufacturer warranty certificates.' },
+                  ].map((item) => (
+                    <div key={item.step} className="bg-white border border-[#e6e6e6] rounded-[18px] p-4.5 flex items-start gap-4">
+                      <span className="font-mono text-xs font-bold bg-black text-white px-2.5 py-1 rounded-lg flex-shrink-0 mt-0.5">
+                        {item.step}
+                      </span>
+                      <div>
+                        <h3 className="font-bold text-sm text-black">{item.title}</h3>
+                        <p className="text-xs text-black/70 leading-relaxed mt-0.5">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Certified Engineers On-Site Inspection Photo */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[4/3]">
+                  <Image
+                    src="/images/engineer_site_inspection.jpg"
+                    alt="ProHomeX Certified Engineering Team on Site"
+                    width={800}
+                    height={600}
+                    className="object-cover w-full h-full"
+                  />
+                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-black/5 shadow-md flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] font-mono text-black/60 uppercase">Quality Assurance</p>
+                      <p className="font-bold text-xs text-black">100% In-House Certified Engineers</p>
+                    </div>
+                    <span className="text-[10px] font-mono bg-black text-white px-3 py-1 rounded-full font-semibold">
+                      NO SUBCONTRACTING
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* AUTHORIZED OEM TIER-1 BRAND TRUST BAR */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <span className="eyebrow-text text-black/60 font-mono block mb-2">DIRECT OEM PARTNERSHIPS</span>
+            <h3 className="text-xl sm:text-2xl font-semibold text-black tracking-tight">
+              Only Genuine Tier-1 Hardware with Direct Manufacturer Warranties
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+            {[
+              { name: 'Hikvision', type: 'CCTV & AI' },
+              { name: 'Dahua', type: 'Surveillance' },
+              { name: 'SolarEdge', type: 'Solar Inverters' },
+              { name: 'Tata Power', type: 'Solar PV' },
+              { name: 'Schneider', type: 'Switchgear' },
+              { name: 'Luminous', type: 'UPS & Power' },
+              { name: 'Microtek', type: 'Pure Sine Wave' },
+              { name: 'Exide', type: 'Tubular Batt' },
+            ].map((brand) => (
+              <div
+                key={brand.name}
+                className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[16px] p-3.5 text-center hover:border-black transition-colors"
+              >
+                <p className="font-bold text-xs text-black tracking-tight">{brand.name}</p>
+                <p className="text-[9px] font-mono text-black/50 uppercase mt-0.5">{brand.type}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Navy Story Block: Engineering Protocols & Ironclad Standards */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="block-navy rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-16 text-white">
             <div className="max-w-4xl">
               <span className="eyebrow-text inline-block mb-4 text-white/70 font-mono">
-                05 / ENGINEERING PROTOCOLS
+                05 / COMMITMENTS TO PROPERTY OWNERS
               </span>
               <h2 className="display-lg text-3xl sm:text-4xl md:text-5xl font-normal text-white mb-6">
-                Why Industry Leaders Choose ProHomeX
+                Why Property &amp; Business Owners Trust ProHomeX
               </h2>
               <p className="text-lg sm:text-xl font-light text-white/80 leading-relaxed mb-12 max-w-2xl">
-                We combine tier-1 hardware with certified in-house engineering and ironclad on-site warranties. No subcontracting, no shortcuts.
+                We combine tier-1 hardware with certified in-house engineering and ironclad on-site warranties. Zero subcontracting, zero cutting corners.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white/10 backdrop-blur-xs rounded-[20px] p-6 border border-white/10">
-                  <span className="font-mono text-xs text-white/60 uppercase tracking-widest block mb-3">STANDARD 01</span>
-                  <h3 className="text-lg font-semibold text-white mb-2">Authorized OEM Supply</h3>
-                  <p className="text-sm font-light text-white/70 leading-relaxed">
+                <div className="bg-white/10 backdrop-blur-xs rounded-[20px] p-6 border border-white/10 space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">
+                    <ShieldCheck size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">Authorized OEM Supply</h3>
+                  <p className="text-xs font-light text-white/75 leading-relaxed">
                     Direct manufacturer warranties with authentic components from Dahua, Hikvision, Tata Power, Luminous &amp; Microtek.
                   </p>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-xs rounded-[20px] p-6 border border-white/10">
-                  <span className="font-mono text-xs text-white/60 uppercase tracking-widest block mb-3">STANDARD 02</span>
-                  <h3 className="text-lg font-semibold text-white mb-2">Certified In-House Team</h3>
-                  <p className="text-sm font-light text-white/70 leading-relaxed">
+                <div className="bg-white/10 backdrop-blur-xs rounded-[20px] p-6 border border-white/10 space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">
+                    <Award size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">Certified In-House Team</h3>
+                  <p className="text-xs font-light text-white/75 leading-relaxed">
                     Every installation is executed, tested, and certified by dedicated technical staff adhering to national safety standards.
                   </p>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-xs rounded-[20px] p-6 border border-white/10">
-                  <span className="font-mono text-xs text-white/60 uppercase tracking-widest block mb-3">STANDARD 03</span>
-                  <h3 className="text-lg font-semibold text-white mb-2">Same-Day Field SLA</h3>
-                  <p className="text-sm font-light text-white/70 leading-relaxed">
+                <div className="bg-white/10 backdrop-blur-xs rounded-[20px] p-6 border border-white/10 space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">
+                    <Clock size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">Same-Day Field SLA</h3>
+                  <p className="text-xs font-light text-white/75 leading-relaxed">
                     Rapid on-site dispatch, spare replacement buffers, and customized annual maintenance contracts (AMCs).
                   </p>
                 </div>
@@ -503,28 +842,28 @@ export default async function HomePage() {
 
         {/* Signature Lime Call-to-Action Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lime rounded-[24px] p-10 sm:p-14 md:p-20 text-center">
+          <div className="block-lime rounded-[28px] md:rounded-[36px] p-10 sm:p-14 md:p-20 text-center">
             <div className="max-w-3xl mx-auto">
               <span className="eyebrow-text inline-block mb-3 text-black/80 font-mono">
                 GET STARTED TODAY
               </span>
               <h2 className="display-lg text-3xl sm:text-4xl md:text-5xl font-semibold text-black tracking-tight mb-4">
-                Ready to Upgrade Your Security or Energy?
+                Ready to Upgrade Your Security or Power?
               </h2>
               <p className="text-base sm:text-lg font-light text-black/80 max-w-xl mx-auto mb-8">
-                Request a complimentary on-site engineering assessment and detailed estimate tailored to your site requirements.
+                Request a complimentary on-site engineering assessment and detailed itemized quote tailored to your building.
               </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/request-quote"
-                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-4 rounded-full text-sm transition-all active:scale-98 shadow-none"
+                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-4 rounded-full text-xs uppercase tracking-wider transition-all active:scale-98 shadow-sm"
                 >
                   Request Assessment
                 </Link>
                 <a
                   href={`tel:${branding.phone?.replace(/[^0-9+]/g, '') || '+919876543210'}`}
-                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-4 rounded-full border border-black/10 hover:border-black text-sm transition-all active:scale-98"
+                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-4 rounded-full border border-black/10 hover:border-black text-xs uppercase tracking-wider transition-all active:scale-98"
                 >
                   Call {branding.phone || '+91 98765 43210'}
                 </a>
@@ -583,13 +922,13 @@ function PublicNav({ branding }: { branding: any }) {
 
 function MarqueeStrip() {
   const items = [
+    'REAL ESTATE & COMMERCIAL INFRASTRUCTURE',
     'CERTIFIED IN-HOUSE ENGINEERS',
     'TIER-1 OEM HARDWARE',
     '24/7 RAPID ON-SITE SLA',
-    'TURNKEY INFRASTRUCTURE',
-    'MNRE GOVT SUBSIDY LIAISONING',
+    'DISCOM NET-METERING LIAISON',
     '25-YEAR PERFORMANCE WARRANTIES',
-    'RESIDENTIAL & INDUSTRIAL SOLUTIONS',
+    'ZERO SUBCONTRACTING',
   ];
 
   return (
@@ -660,4 +999,3 @@ function PublicFooter({ branding }: { branding: any }) {
     </footer>
   );
 }
-

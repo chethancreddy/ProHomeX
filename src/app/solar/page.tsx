@@ -1,6 +1,9 @@
 import Link from 'next/link';
-import { Zap, Sun, Shield, Award, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import Image from 'next/image';
+import { Zap, Sun, Shield, Award, ArrowRight, ArrowUpRight, Check, TrendingDown, FileText, CheckCircle2 } from 'lucide-react';
 import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+
+export const dynamic = 'force-dynamic';
 
 export default async function SolarPage() {
   const [solar, branding] = await Promise.all([
@@ -13,40 +16,108 @@ export default async function SolarPage() {
       <PublicNav branding={branding} />
 
       <main className="space-y-16 md:space-y-24 py-10 md:py-16">
-        {/* Hero: Signature Lilac Block */}
+        {/* Hero: Signature Lilac Block with Real Rooftop Project Photo */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lilac rounded-[24px] p-8 sm:p-12 md:p-16">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                SOLUTIONS / CLEAN ENERGY &amp; SOLAR
-              </span>
-              <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black mb-6">
-                {solar.hero_title || 'Turnkey Solar Rooftop Power Plants'}
-              </h1>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-6">
-                {solar.hero_subtitle || 'Harness clean solar energy with tier-1 bifacial panels, hybrid inverters, and net-metering approvals.'}
-              </p>
+          <div className="block-lilac rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  SOLUTIONS / CLEAN ENERGY &amp; SOLAR
+                </span>
+                <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black">
+                  {solar.hero_title || 'Turnkey Solar Rooftop Power Plants'}
+                </h1>
+                <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed">
+                  {solar.hero_subtitle ||
+                    'Harness clean solar energy with Tier-1 bifacial panels, hybrid inverters, and seamless government net-metering approvals for villas, commercial towers and industries.'}
+                </p>
 
-              {solar.subsidy_text && (
-                <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono mb-8">
-                  <strong className="text-white font-bold">{solar.subsidy_text}</strong>
+                {solar.subsidy_text && (
+                  <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono">
+                    <strong className="text-white font-bold">{solar.subsidy_text}</strong>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                  <Link
+                    href="/request-quote?service=Solar"
+                    className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-xs uppercase tracking-wider shadow-sm"
+                  >
+                    Request Solar Quote <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-xs uppercase tracking-wider"
+                  >
+                    Book Site Feasibility
+                  </Link>
                 </div>
-              )}
-
-              <div className="flex flex-wrap items-center gap-3.5">
-                <Link
-                  href="/request-quote?service=Solar"
-                  className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-sm"
-                >
-                  Request Solar Quote <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-sm"
-                >
-                  Book Free Site Survey ({branding.phone || '+91 98765 43210'})
-                </Link>
               </div>
+
+              {/* Real Solar Rooftop Image Visual */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/solar_rooftop_project.jpg"
+                    alt="Rooftop Solar Installation on Commercial & Residential Real Estate"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <Sun size={13} className="text-[#ffe066]" />
+                    <span>NET-METERING ACTIVE · 28.4 kWh/DAY</span>
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md text-black p-3 rounded-2xl text-xs shadow-md border border-black/5">
+                    <p className="text-[10px] text-black/60 font-mono uppercase">Direct DBT Subsidy</p>
+                    <p className="font-bold text-sm text-black">Up to ₹78,000 Govt. Assistance</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Real Estate Financial Benefits */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="eyebrow-text text-black/60 font-mono block mb-2">FINANCIAL RETURN</span>
+            <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">
+              Why Real Estate &amp; Building Owners Invest in Solar
+            </h2>
+            <p className="text-black/70 text-sm mt-1">
+              Guaranteed ROI with rapid 3-4 year payback and 25 years of free electricity.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3">
+              <span className="font-mono text-xs text-black/50 uppercase block">01 / BILL REDUCTION</span>
+              <p className="text-3xl font-bold font-mono text-black">-85% to -90%</p>
+              <h3 className="text-base font-bold text-black">Immediate Electricity Savings</h3>
+              <p className="text-xs text-black/70 leading-relaxed">
+                Offset high commercial slab tariffs with direct daytime self-consumption and net-meter credit banking.
+              </p>
+            </div>
+
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3">
+              <span className="font-mono text-xs text-black/50 uppercase block">02 / PROPERTY VALUATION</span>
+              <p className="text-3xl font-bold font-mono text-[#1ea64a]">+12% Asset Value</p>
+              <h3 className="text-base font-bold text-black">Green Building Certification</h3>
+              <p className="text-xs text-black/70 leading-relaxed">
+                Enhance commercial rental yield and residential market value with certified ESG sustainability ratings.
+              </p>
+            </div>
+
+            <div className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[24px] p-6 space-y-3">
+              <span className="font-mono text-xs text-black/50 uppercase block">03 / ACCELERATED DEPRECIATION</span>
+              <p className="text-3xl font-bold font-mono text-blue-600">40% Tax Benefit</p>
+              <h3 className="text-base font-bold text-black">Commercial Tax Write-off</h3>
+              <p className="text-xs text-black/70 leading-relaxed">
+                Commercial and industrial property owners can claim 40% accelerated depreciation in Year 1.
+              </p>
             </div>
           </div>
         </section>
@@ -102,25 +173,25 @@ export default async function SolarPage() {
 
         {/* Closing CTA */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lilac rounded-[24px] p-10 sm:p-16 text-center">
+          <div className="block-lilac rounded-[28px] md:rounded-[36px] p-10 sm:p-16 text-center">
             <div className="max-w-2xl mx-auto">
-              <span className="eyebrow-text text-black/80 font-mono block mb-2">REDUCE ELECTRICITY BILLS</span>
-              <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">Ready to Generate Your Own Power?</h2>
+              <span className="eyebrow-text text-black/80 font-mono block mb-2">ROOFTOP ASSESSMENT</span>
+              <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">Calculate Your Solar Generation &amp; Subsidy</h2>
               <p className="text-sm font-light text-black/80 mb-8">
-                {solar.warranty_text || '25-Year Performance Warranty on Modules with On-Site Engineering Support.'}
+                {solar.warranty_text || 'Backed by 25-Year Performance Warranty & Direct MNRE Discom Liaisoning.'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3.5">
                 <Link
                   href="/request-quote?service=Solar"
-                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-sm transition-all active:scale-98"
+                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition-all active:scale-98 shadow-sm"
                 >
-                  Calculate Solar Savings
+                  Request Solar Survey
                 </Link>
                 <Link
                   href="/contact"
-                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-sm transition-all active:scale-98"
+                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-xs uppercase tracking-wider transition-all active:scale-98"
                 >
-                  Talk to Solar Engineer
+                  Contact Solar Engineer
                 </Link>
               </div>
             </div>
@@ -182,4 +253,3 @@ function PublicFooter({ branding }: { branding: any }) {
     </footer>
   );
 }
-

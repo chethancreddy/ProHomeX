@@ -1,6 +1,9 @@
 import Link from 'next/link';
-import { Shield, Camera, Monitor, Wifi, ArrowRight, CheckCircle2, ArrowUpRight, Check } from 'lucide-react';
+import Image from 'next/image';
+import { Shield, Camera, Monitor, Wifi, ArrowRight, CheckCircle2, ArrowUpRight, Check, ShieldCheck, Eye, Lock } from 'lucide-react';
 import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
+
+export const dynamic = 'force-dynamic';
 
 export default async function CCTVPage() {
   const [cctv, branding] = await Promise.all([
@@ -13,45 +16,121 @@ export default async function CCTVPage() {
       <PublicNav branding={branding} />
 
       <main className="space-y-16 md:space-y-24 py-10 md:py-16">
-        {/* Hero: Signature Lime Block */}
+        {/* Hero: Signature Lime Block with Large Real Building Photo */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lime rounded-[24px] p-8 sm:p-12 md:p-16">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                SOLUTIONS / SURVEILLANCE &amp; CCTV
-              </span>
-              <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black mb-6">
-                {cctv.hero_title || 'Enterprise CCTV & AI Video Analytics'}
-              </h1>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-6">
-                {cctv.hero_subtitle || 'Engineered surveillance systems for round-the-clock physical security and perimeter awareness.'}
-              </p>
+          <div className="block-lime rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  SOLUTIONS / SURVEILLANCE &amp; CCTV
+                </span>
+                <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black">
+                  {cctv.hero_title || 'Enterprise CCTV & AI Video Analytics'}
+                </h1>
+                <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed">
+                  {cctv.hero_subtitle ||
+                    'Engineered surveillance systems for round-the-clock physical security, AI human recognition, and perimeter awareness on residential & commercial estates.'}
+                </p>
 
-              {cctv.starting_price && (
-                <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono mb-8">
-                  Turnkey Packages Starting from <strong className="text-white font-bold">{cctv.starting_price}</strong>
+                {cctv.starting_price && (
+                  <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono">
+                    Turnkey Packages Starting from{' '}
+                    <strong className="text-white font-bold">{cctv.starting_price}</strong>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                  <Link
+                    href="/request-quote?service=CCTV"
+                    className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-xs uppercase tracking-wider shadow-sm"
+                  >
+                    Request CCTV Quote <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-xs uppercase tracking-wider"
+                  >
+                    Talk to Specialist
+                  </Link>
                 </div>
-              )}
+              </div>
 
-              <div className="flex flex-wrap items-center gap-3.5">
-                <Link
-                  href="/request-quote?service=CCTV"
-                  className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-sm"
-                >
-                  Request CCTV Quote <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-sm"
-                >
-                  Talk to Specialist ({branding.phone || '+91 98765 43210'})
-                </Link>
+              {/* Real Building Image Visual */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/cctv_commercial_security.jpg"
+                    alt="CCTV Installation on Modern Commercial Building"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <span className="w-2 h-2 rounded-full bg-[#1ea64a] animate-pulse" />
+                    <span>4K AI STREAM · LIVE PERIMETER</span>
+                  </div>
+
+                  <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md text-black px-4 py-2 rounded-2xl text-xs font-semibold shadow-md border border-black/5 flex items-center gap-2">
+                    <ShieldCheck size={16} className="text-[#1ea64a]" />
+                    <span>Authorized Hikvision &amp; Dahua Partner</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Camera Systems Architecture */}
+        {/* Real Estate & Commercial Applications */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="eyebrow-text text-black/60 font-mono block mb-2">TARGET USE CASES</span>
+            <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">
+              Architectural Applications
+            </h2>
+            <p className="text-black/70 text-sm mt-1">
+              Customized camera placement plans for high-value properties and commercial facilities.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: 'Luxury Villas & Residences',
+                desc: 'Discreet turret cameras, hidden conduit routing, boundary laser tripwires, and encrypted family mobile view.',
+                badge: 'Private & Secure',
+              },
+              {
+                title: 'Corporate Office Suites',
+                desc: 'Server room monitoring, entrance turnstile AI, reception dome arrays, and 90-day redundant NVR retention.',
+                badge: 'Access Compliance',
+              },
+              {
+                title: 'Apartments & Gated Layouts',
+                desc: 'ANPR automatic vehicle number plate capture, club-house coverage, and multi-guard viewing consoles.',
+                badge: 'Community Safety',
+              },
+              {
+                title: 'Retail Showrooms & Warehouses',
+                desc: 'Fisheye 360° POS billing zoom, high-bay night optics, and remote multi-branch dashboard.',
+                badge: 'Loss Prevention',
+              },
+            ].map((app) => (
+              <div
+                key={app.title}
+                className="bg-[#f7f7f5] border border-[#e6e6e6] rounded-[22px] p-6 space-y-3 hover:border-black transition-all"
+              >
+                <span className="text-[10px] font-mono font-bold bg-white text-black px-2.5 py-1 rounded-md border border-[#e6e6e6] inline-block">
+                  {app.badge}
+                </span>
+                <h3 className="text-base font-bold text-black">{app.title}</h3>
+                <p className="text-xs text-black/70 leading-relaxed">{app.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Camera Systems Hardware Formats */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <span className="eyebrow-text text-black/60 font-mono block mb-2">HARDWARE SPECIFICATIONS</span>
@@ -105,7 +184,7 @@ export default async function CCTVPage() {
 
         {/* Closing CTA */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-lime rounded-[24px] p-10 sm:p-16 text-center">
+          <div className="block-lime rounded-[28px] md:rounded-[36px] p-10 sm:p-16 text-center">
             <div className="max-w-2xl mx-auto">
               <span className="eyebrow-text text-black/80 font-mono block mb-2">GET A SITE ESTIMATE</span>
               <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">Request a Customized CCTV Quote</h2>
@@ -115,13 +194,13 @@ export default async function CCTVPage() {
               <div className="flex flex-wrap items-center justify-center gap-3.5">
                 <Link
                   href="/request-quote?service=CCTV"
-                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-sm transition-all active:scale-98"
+                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition-all active:scale-98"
                 >
                   Request Free Site Survey
                 </Link>
                 <Link
                   href="/contact"
-                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-sm transition-all active:scale-98"
+                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-xs uppercase tracking-wider transition-all active:scale-98"
                 >
                   Contact Engineering Team
                 </Link>
@@ -185,4 +264,3 @@ function PublicFooter({ branding }: { branding: any }) {
     </footer>
   );
 }
-

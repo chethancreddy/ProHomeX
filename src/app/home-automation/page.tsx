@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Cpu, 
   Droplets, 
@@ -19,6 +20,8 @@ import {
 } from 'lucide-react';
 import { getSectionSettings, ServicePageSettings, BrandingSettings } from '@/lib/cms';
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomeAutomationPage() {
   const [automation, branding] = await Promise.all([
     getSectionSettings<ServicePageSettings>('automation_page'),
@@ -30,39 +33,66 @@ export default async function HomeAutomationPage() {
       <PublicNav branding={branding} />
 
       <main className="space-y-16 md:space-y-24 py-10 md:py-16">
-        {/* Hero Section: Signature Mint Block */}
+        {/* Hero Section: Signature Mint Block with Smart Home Photo */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-mint rounded-[24px] p-8 sm:p-12 md:p-16">
-            <div className="max-w-3xl">
-              <span className="eyebrow-text inline-block mb-4 text-black/80 font-mono">
-                SOLUTIONS / IOT &amp; HOME AUTOMATION
-              </span>
-              <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black mb-6">
-                {automation.hero_title || 'Smart Sump & Motion Lighting Automation'}
-              </h1>
-              <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed mb-6">
-                {automation.hero_subtitle || 'Autonomous water level management with dry-run protection, scheduled motor cycles, capacitive touch glass switches, and smart sensor hubs.'}
-              </p>
+          <div className="block-mint rounded-[28px] md:rounded-[36px] p-8 sm:p-12 md:p-14">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="eyebrow-text inline-block text-black/80 font-mono">
+                  SOLUTIONS / IOT &amp; HOME AUTOMATION
+                </span>
+                <h1 className="display-lg text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black">
+                  {automation.hero_title || 'Smart Sump & Motion Lighting Automation'}
+                </h1>
+                <p className="text-lg sm:text-xl font-light text-black/90 leading-relaxed">
+                  {automation.hero_subtitle ||
+                    'Autonomous water level management with dry-run protection, scheduled motor cycles, capacitive touch glass switches, and smart sensor hubs for luxury villas and commercial buildings.'}
+                </p>
 
-              {automation.starting_price && (
-                <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono mb-8">
-                  Controllers Starting from <strong className="text-white font-bold">{automation.starting_price}</strong>
+                {automation.starting_price && (
+                  <div className="inline-block bg-black text-white px-4 py-1.5 rounded-full text-xs font-mono">
+                    Controllers Starting from{' '}
+                    <strong className="text-white font-bold">{automation.starting_price}</strong>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                  <Link 
+                    href="/request-quote?service=Home Automation" 
+                    className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-xs uppercase tracking-wider shadow-sm"
+                  >
+                    Configure Automation Quote <ArrowRight size={14} />
+                  </Link>
+                  <Link 
+                    href="/contact" 
+                    className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-xs uppercase tracking-wider"
+                  >
+                    Technical Consultation
+                  </Link>
                 </div>
-              )}
+              </div>
 
-              <div className="flex flex-wrap items-center gap-3.5">
-                <Link 
-                  href="/request-quote?service=Home Automation" 
-                  className="inline-flex items-center gap-2 bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full transition-all active:scale-98 text-sm"
-                >
-                  Configure Automation Quote <ArrowRight size={16} />
-                </Link>
-                <Link 
-                  href="/contact" 
-                  className="inline-flex items-center gap-2 bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black transition-all active:scale-98 text-sm"
-                >
-                  Technical Consultation ({branding.phone || '+91 98765 43210'})
-                </Link>
+              {/* Real Smart Living Image Visual */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative rounded-[24px] overflow-hidden border border-black/10 shadow-xl bg-black/5 aspect-[16/10]">
+                  <Image
+                    src="/images/smart_home_automation.jpg"
+                    alt="Luxury Smart Home & Touch Automation"
+                    width={800}
+                    height={500}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                  <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-[11px] font-mono flex items-center gap-2 border border-white/10">
+                    <Cpu size={13} className="text-[#20c997]" />
+                    <span>INTELLIGENT DUAL TANK &amp; LIGHTING SYNC</span>
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md text-black p-3 rounded-2xl text-xs shadow-md border border-black/5">
+                    <p className="text-[10px] text-black/60 font-mono uppercase">Motor Protection</p>
+                    <p className="font-bold text-sm text-black">Automatic Dry-Run Cutoff Safe</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -201,30 +231,29 @@ export default async function HomeAutomationPage() {
               </div>
             </div>
 
-            {/* Text Description */}
-            <div className="order-1 lg:order-2">
-              <span className="eyebrow-text text-black/60 font-mono block mb-2">ENERGY SAVING</span>
-              <h2 className="headline-text text-3xl font-semibold text-black tracking-tight mb-4">
-                Sensor Motion Lights &amp; Smart Glass Switches
+            {/* Content */}
+            <div className="order-1 lg:order-2 space-y-6">
+              <span className="eyebrow-text text-black/60 font-mono block">AMBIENT INTELLIGENCE</span>
+              <h2 className="headline-text text-3xl sm:text-4xl font-semibold text-black tracking-tight">
+                Motion-Sensor Lighting &amp; Glass Touch Controls
               </h2>
-              <p className="text-sm sm:text-base font-light text-black/80 leading-relaxed mb-6">
-                Cut lighting electricity consumption by up to 40% with occupancy-sensing automations and luxury capacitive glass touch switchboards for residences and corporate offices.
+              <p className="text-sm sm:text-base font-light text-black/80 leading-relaxed">
+                Save energy automatically with PIR and microwave motion detection. Elegant tempered glass capacitive touch switchboards retrofit directly into standard modular concealed boxes.
               </p>
 
-              <div className="space-y-3.5">
+              <div className="space-y-3 pt-2">
                 {[
-                  { title: 'Sub-Second Motion Detection', desc: 'PIR infrared and 5.8GHz Doppler radar detect presence instantly.' },
-                  { title: 'Configurable Inactivity Auto-OFF', desc: 'Choose precise shut-off timers (10s to 15m) to eliminate lights left ON by mistake.' },
-                  { title: 'Daylight / Lux Threshold Harvesting', desc: 'Lights only activate when natural sunlight is low, preventing daytime waste.' },
-                  { title: 'Capacitive Glass Touch Panels & App', desc: 'Backlit tempered glass switchboards with remote smartphone and voice control.' },
+                  { title: 'Zero Rewiring Retrofit', desc: 'Fits seamlessly into standard Roma / modular metallic junction boxes.' },
+                  { title: 'Daylight Lux Harvesting', desc: 'Lights remain OFF during daytime even if motion is detected, cutting energy waste.' },
+                  { title: 'Smartphone & Voice Assist', desc: 'Full scene controls with Apple HomeKit, Google Home, and Alexa integration.' },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#c8e6cd] text-[#1ea64a] flex items-center justify-center flex-shrink-0 mt-0.5 text-xs">
+                  <div key={idx} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-[#c8e6cd] text-[#1ea64a] flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check size={12} strokeWidth={3} />
                     </div>
                     <div>
                       <h4 className="text-xs font-bold text-black">{item.title}</h4>
-                      <p className="text-xs text-black/60 mt-0.5 leading-relaxed">{item.desc}</p>
+                      <p className="text-xs text-black/70 leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -233,66 +262,57 @@ export default async function HomeAutomationPage() {
           </div>
         </section>
 
-        {/* Feature 3: Modular Smart Modules */}
+        {/* Scope of Work */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <span className="eyebrow-text text-black/60 font-mono block mb-2">MODULAR ARCHITECTURE</span>
-            <h2 className="headline-text text-3xl font-semibold text-black tracking-tight">Smart Modules for Every Zone</h2>
-            <p className="text-black/70 text-sm mt-1">Deploy standalone controllers or combine them into a unified automated facility.</p>
-          </div>
+          <div className="bg-[#f7f7f5] rounded-[24px] p-8 sm:p-12 border border-[#e6e6e6]">
+            <span className="eyebrow-text text-black/60 font-mono block mb-2">COMPLETE PACKAGE</span>
+            <h2 className="headline-text text-2xl sm:text-3xl font-semibold text-black tracking-tight mb-8">
+              What&apos;s Included in Our Automation Packages
+            </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Droplets, title: 'Sump & Tank Controller', desc: 'Dual-tank water level automation with dry-run trip safety and cyclic motor timer.', badge: 'Popular' },
-              { icon: Lightbulb, title: 'Motion & Radar Lights', desc: 'Auto-turn on upon entry and shut off on timer in staircases, corridors and bathrooms.', badge: 'Energy Saver' },
-              { icon: Sliders, title: 'Capacitive Touch Panels', desc: 'Luxury tempered glass touch switchboards with Wi-Fi / Zigbee connectivity.', badge: 'Luxury' },
-              { icon: Lock, title: 'Biometric Smart Locks', desc: 'Fingerprint, passcode, RFID card, and mobile unlock for high-security entrance.', badge: 'Security' },
-            ].map((card, i) => (
-              <div key={i} className="bg-white rounded-[20px] border border-[#e6e6e6] p-6 hover:border-black transition-all flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="w-10 h-10 rounded-full bg-[#f7f7f5] text-black flex items-center justify-center">
-                      <card.icon size={20} />
-                    </div>
-                    <span className="caption-text bg-[#f7f7f5] text-black font-mono px-2.5 py-1 rounded-full border border-[#e6e6e6]">
-                      {card.badge}
-                    </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(automation.features && automation.features.length > 0 ? automation.features : [
+                'Automatic Dual-Tank Sump & Overhead Water Motor Control with Dry-Run Trip Protection',
+                'PIR & Microwave Motion Sensor Lighting with Lux Daylight Harvesting',
+                'Capacitive Tempered Glass Smart Touch Switches with Smartphone & Voice Control',
+                'Real-time Water Level Depth Monitoring & History Event Logs',
+                'Modular Zigbee 3.0 & Matter Mesh Gateway supporting 128+ smart devices',
+                automation.warranty_text || '2-Year Replacement Warranty on all Smart Controllers & Ultrasonic Sensors',
+              ]).map((feat, idx) => (
+                <div key={idx} className="bg-white p-4 rounded-[16px] border border-[#e6e6e6] flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-[#c8e6cd] text-[#1ea64a] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check size={12} strokeWidth={3} />
                   </div>
-                  <h3 className="font-bold text-black text-base mb-2">{card.title}</h3>
-                  <p className="text-xs text-black/70 leading-relaxed">{card.desc}</p>
+                  <span className="text-xs font-medium text-black leading-snug">{feat}</span>
                 </div>
-                <Link 
-                  href="/request-quote?service=Home Automation" 
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold text-black hover:opacity-60 transition-opacity"
-                >
-                  Include in Quote <ArrowRight size={13} />
-                </Link>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Closing CTA */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="block-mint rounded-[24px] p-10 sm:p-16 text-center">
+          <div className="block-mint rounded-[28px] md:rounded-[36px] p-10 sm:p-16 text-center">
             <div className="max-w-2xl mx-auto">
-              <span className="eyebrow-text text-black/80 font-mono block mb-2">SMART LIVING</span>
-              <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">Ready to Automate Your Property?</h2>
+              <span className="eyebrow-text text-black/80 font-mono block mb-2">UPGRADE YOUR BUILDING</span>
+              <h2 className="display-lg text-3xl sm:text-4xl font-semibold text-black mb-4">
+                Automate Your Water Sump &amp; Lighting Today
+              </h2>
               <p className="text-sm font-light text-black/80 mb-8">
-                Turnkey installation and testing executed by certified IoT engineers within 48 hours.
+                {automation.warranty_text || 'Backed by 2-Year Replacement Warranty & On-Site Installation by ProHomeX Engineers.'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3.5">
-                <Link 
-                  href="/request-quote?service=Home Automation" 
-                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-sm transition-all active:scale-98"
+                <Link
+                  href="/request-quote?service=Home Automation"
+                  className="bg-black hover:bg-neutral-900 text-white font-medium px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition-all active:scale-98 shadow-sm"
                 >
-                  Request Automation Quote
+                  Request Automation Estimate
                 </Link>
-                <Link 
-                  href="/contact" 
-                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-sm transition-all active:scale-98"
+                <Link
+                  href="/contact"
+                  className="bg-white hover:bg-[#f7f7f5] text-black font-medium px-8 py-3.5 rounded-full border border-black/10 hover:border-black text-xs uppercase tracking-wider transition-all active:scale-98"
                 >
-                  Contact Automation Team
+                  Schedule Demo
                 </Link>
               </div>
             </div>
@@ -354,4 +374,3 @@ function PublicFooter({ branding }: { branding: any }) {
     </footer>
   );
 }
-
